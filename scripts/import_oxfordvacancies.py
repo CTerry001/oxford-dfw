@@ -5,6 +5,7 @@ Usage:
     python3 scripts/import_oxfordvacancies.py data/dallas/houses.csv Dallas Denton Collin
 
 - Writes name, address, city, state, zip, gender, house phone, lat, lng.
+- Fixes listed in data/corrections.csv (wrong addresses etc. in the source) are re-applied.
 - If the CSV already exists, chapter numbers you've entered are KEPT (matched by
   house name + street address), and any extra houses you added by hand are kept too.
 - Contact-person names and personal cell numbers are deliberately not imported.
@@ -29,6 +30,24 @@ def fetch_state(state="TX"):
         return json.load(r)
 
 
+CORRECTIONS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "corrections.csv")
+
+
+def load_corrections():
+    """data/corrections.csv: name,field,wrong,right,note — fixes for errors in the source listing."""
+    if not os.path.exists(CORRECTIONS):
+        return []
+    with open(CORRECTIONS, newline="", encoding="utf-8") as f:
+        return [r for r in csv.DictReader(f) if r.get("name") and r.get("field")]
+
+
+def apply_corrections(row, corrections):
+    for c in corrections:
+        if c["name"].strip().lower() == row["name"].lower() and \
+           row.get(c["field"], "").strip().lower() == c["wrong"].strip().lower():
+            row[c["field"]] = c["right"].strip()
+
+
 def key(name, address):
     norm = lambda s: re.sub(r"[^a-z0-9]", "", (s or "").lower())
     return norm(name) + "|" + norm(address)
@@ -42,6 +61,7 @@ def main(path, counties):
             existing = list(csv.DictReader(f))
     old = {key(r["name"], r["address"]): r for r in existing}
 
+    corrections = load_corrections()
     rows, seen = [], set()
     for h in fetch_state():
         if (h.get("c") or "").lower() not in wanted:
@@ -51,6 +71,7 @@ def main(path, counties):
         row = {"name": h["n"].strip(), "address": street.strip(), "city": city.strip(), "state": st,
                "zip": zip_ or "", "chapter": "", "gender": GENDER.get(h.get("g"), h.get("g") or ""),
                "phone": h.get("p") or "", "lat": h.get("la") or "", "lng": h.get("lo") or ""}
+        apply_corrections(row, corrections)
         k = key(row["name"], row["address"])
         if k in old:
             row["chapter"] = old[k].get("chapter", "")

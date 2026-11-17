@@ -1,0 +1,15 @@
+name,field,wrong,right,note
+Coleman Bedford,address,2316 Stonegate Dr.,2316 Stonegate Dr N,Census + map: Stonegate Dr N
+Downey,address,1704 Downey Rd.,1704 Downey Dr,Reported by user; Census + map agree: Downey Dr
+Lake Worth,address,4624 St. Thomas Street,4624 Saint Thomas Pl,Census + map: Saint Thomas Place
+Umi,address,2248 North Sylvanina,2248 N Sylvania Ave,Misspelled street; Census + map: N Sylvania Ave
+Steamboat,address,221 Steamboat,221 Steamboat Dr,Missing street type; Census: Steamboat Dr
+Clover Haven,address,7109 Laynon Drive,7109 Lanyon Dr,Misspelled street; Census + map: Lanyon Dr
+Dallas,address,726 Glendale Drive,726 Glendale St,Census + map: Glendale St
+Motley,address,3319 Santa Teresa Dr.,3319 Santa Teresa Ave,Census + map: Santa Teresa Ave
+Tayler,address,11340 Dumbarton,11340 Dumbarton Dr,Missing street type; Census + map: Dumbarton Dr
+White Rock,address,8453 Banquo Rd.,8453 Banquo Dr,Census + map: Banquo Dr
+Woodstone,address,7963 Woodstone,7963 Woodstone Ln,Missing street type; Census + map: Woodstone Ln
+Wheeler,address,1305 Walnut Street,1305 W Walnut St,Missing direction; Census + map: W Walnut St
+Canyon Valley,address,3344 Canyon Valley Tr.,3344 Canyon Valley Trl,Standard abbreviation
+Mcclary,address,4001 Mc Clary Drive,4001 McClary Dr,Census + map spelling: McClary

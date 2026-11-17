@@ -62,6 +62,17 @@ python3 scripts/import_oxfordvacancies.py data/dallas/houses.csv Dallas Denton C
 Refreshes the house list for those counties. Chapter numbers you've already entered are kept
 (matched by house name + address), and hand-added houses are kept too.
 
+### Checking addresses
+
+```sh
+python3 scripts/check_addresses.py data/fort-worth/houses.csv data/dallas/houses.csv
+```
+
+Compares every listed address with the US Census address database and with the street the
+map pin sits on, and flags disagreements (takes ~5 minutes). Confirmed fixes go in
+`data/corrections.csv` (`name,field,wrong,right,note`); the import script re-applies them on
+every re-import, so errors on oxfordvacancies.com don't come back.
+
 ### Printable handout
 
 `print.html` renders a one-page Letter handout (map + chapter lists + QR code).
