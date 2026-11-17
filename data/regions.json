@@ -43,6 +43,21 @@
           "color": "#5b8c2a"
         }
       ]
+    },
+    {
+      "id": "dallas",
+      "name": "Dallas \u00b7 Denton \u00b7 Collin",
+      "hidden": true,
+      "center": [
+        32.85,
+        -96.8
+      ],
+      "zoom": 10,
+      "radiusKm": 80,
+      "housesCsv": "data/dallas/houses.csv",
+      "boundaries": "data/dallas/chapters.geojson",
+      "sampleData": false,
+      "chapters": []
     }
   ]
 }

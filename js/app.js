@@ -24,12 +24,15 @@
 
   const { regions } = await fetch('data/regions.json').then(r => r.json());
   const select = $('region-select');
-  select.innerHTML = regions.map(r => `<option value="${esc(r.id)}">${esc(r.name)}</option>`).join('');
-  select.hidden = regions.length < 2;
+  const params = new URLSearchParams(location.search);
+  // Regions marked "hidden" (e.g. no chapter info yet) aren't offered in the dropdown,
+  // but can still be opened directly with ?region=<id>.
+  const startRegion = regions.find(r => r.id === params.get('region')) || regions.find(r => !r.hidden) || regions[0];
+  const listed = regions.filter(r => !r.hidden || r === startRegion);
+  select.innerHTML = listed.map(r => `<option value="${esc(r.id)}">${esc(r.name)}</option>`).join('');
+  select.hidden = listed.length < 2;
   select.addEventListener('change', () => loadRegion(regions.find(r => r.id === select.value)));
 
-  const params = new URLSearchParams(location.search);
-  const startRegion = regions.find(r => r.id === params.get('region')) || regions[0];
   select.value = startRegion.id;
   await loadRegion(startRegion);
   if (params.get('house')) {

@@ -42,12 +42,35 @@ The house list was copied from oxfordvacancies.com (Nov 2026): all of Tarrant Co
 - **No boundary file (default):** every spot within 2 km of a house is shaded in the color of its *nearest* house's chapter (so chapters that share a neighborhood, like 10 and 28, split it cleanly). Address lookups use the same nearest-house rule, and the app labels the result "approximate". Change the 2 km with `TERRITORY_KM` in `js/app.js`.
 - **Official boundaries:** draw them at [geojson.io](https://geojson.io), add a property `"chapter": "10"` (e.g. "10", "14", "18", "28", "41", "44") to each shape, and save the result as `data/fort-worth/chapters.geojson`. The app then uses those exact shapes, and address lookups become exact.
 
-### Adding Dallas
+### Dallas / Denton / Collin (hidden for now)
 
-1. Create `data/dallas/houses.csv` (same columns) and optionally `data/dallas/chapters.geojson`.
-2. Add a Dallas entry to `regions.json` (copy the Fort Worth block and change `id`, `name`, `center`, file paths, and chapters).
+Dallas, Denton and Collin County houses (95) are in `data/dallas/houses.csv` with no chapters yet.
+The region is marked `"hidden": true` in `regions.json`, so the site still opens on Fort Worth
+and shows no region dropdown. Preview it with `?region=dallas` on the end of the site address.
 
-A region dropdown appears automatically once there's more than one region.
+To go live with Dallas:
+1. Add its chapters to the Dallas entry in `regions.json` (same format as Fort Worth: `id`, `name`, `color`).
+2. Fill in the `chapter` column in `data/dallas/houses.csv`.
+3. Remove `"hidden": true`. A region dropdown then appears.
+
+### Re-importing houses from oxfordvacancies.com
+
+```sh
+python3 scripts/import_oxfordvacancies.py data/dallas/houses.csv Dallas Denton Collin
+```
+
+Refreshes the house list for those counties. Chapter numbers you've already entered are kept
+(matched by house name + address), and hand-added houses are kept too.
+
+### Printable handout
+
+`print.html` renders a one-page Letter handout (map + chapter lists + QR code).
+Open it in a browser and print, or regenerate the PDF:
+
+```sh
+chromium --headless=new --virtual-time-budget=20000 --no-pdf-header-footer \
+  --print-to-pdf=handouts/fort-worth-chapters.pdf http://localhost:8000/print.html
+```
 
 ## Publishing on GitHub Pages (free)
 
