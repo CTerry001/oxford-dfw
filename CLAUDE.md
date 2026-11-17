@@ -1,8 +1,10 @@
 # Oxford House Chapter Map
 
 A free, static map (GitHub Pages) showing which Oxford House **chapter** each house belongs to,
-built for the owner's Oxford House community. Live at https://cterry001.github.io/oxford-dfw/
-(repo `CTerry001/oxford-dfw`, branch `main`, root). Pushing to `main` redeploys in ~1 minute.
+built for the owner's Oxford House community. Live at **https://oxfordchapters.com/** (custom domain,
+registered at Porkbun; DNS points at GitHub Pages). Old address cterry001.github.io/oxford-dfw redirects there.
+Repo `CTerry001/oxford-dfw`, branch `main`, root; the `CNAME` file holds the domain, so don't delete it.
+Pushing to `main` redeploys in ~1 minute.
 
 No build step: `index.html` + `js/app.js` + `js/geo.js` + `css/style.css`, data in `data/`.
 Test locally with `python3 -m http.server` (opening the file directly won't load the data).
@@ -65,8 +67,8 @@ Test locally with `python3 -m http.server` (opening the file directly won't load
   poor fit). Better: ask the Texas state association or chapter officers for a roster, or add an
   opt-in "report your chapter" form.
 - Traffic stats: not set up. If added, use a cookie-free tool (GoatCounter or Cloudflare Web Analytics).
-- Custom domain: not bought. Shortlist: oxforddfw.org, oxfordchapters.org, oxfordtxmap.org. Avoid
-  "oxfordhouse" in the name (trademark). Renaming the repo breaks the Pages URL; a custom domain avoids that.
+- Custom domain: oxfordchapters.com, bought Nov 2026 (Porkbun). Hosting stays on GitHub Pages (free);
+  AWS was considered and isn't needed for a static site.
 
 ## Useful commands
 ```sh

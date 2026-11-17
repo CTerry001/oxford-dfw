@@ -89,6 +89,13 @@ chromium --headless=new --virtual-time-budget=20000 --no-pdf-header-footer \
 2. In the repo, go to **Settings → Pages**, set **Source: Deploy from a branch**, branch **main**, folder **/ (root)**, and save.
 3. After a minute the site is live at `https://<your-username>.github.io/oxford-chapter-map/`.
 
+## Custom domain
+
+The live site is **https://oxfordchapters.com** (registered at Porkbun, hosted free on GitHub Pages).
+Porkbun DNS records: four `A` records (185.199.108.153, .109.153, .110.153, .111.153), four `AAAA`
+records (2606:50c0:8000::153 … 8003::153) on the bare domain, and `www` CNAME → `cterry001.github.io`.
+The `CNAME` file in this repo tells GitHub which domain to serve; don't delete it.
+
 ## Sharing a house
 
 When you click a house, the address bar updates (e.g. `?region=fort-worth&house=sample-house-3a`).

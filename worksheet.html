@@ -147,7 +147,7 @@
   <script src="js/geo.js"></script>
   <script>
   (async () => {
-    const SITE = 'https://cterry001.github.io/oxford-dfw/';
+    const SITE = 'https://oxfordchapters.com/';
     const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     const params = new URLSearchParams(location.search);
     const { regions } = await fetch('data/regions.json').then(r => r.json());
