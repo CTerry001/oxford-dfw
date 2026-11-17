@@ -19,6 +19,7 @@
     selected: null,
   };
   let activeIdx = -1, currentResults = [];  // search results state
+  const UNASSIGNED = '?';
 
   const { regions } = await fetch('data/regions.json').then(r => r.json());
   const select = $('region-select');
@@ -49,6 +50,9 @@
       slug: slug(row.name || row.address),
       pt: [parseFloat(row.lng), parseFloat(row.lat)],
     })).filter(h => Number.isFinite(h.pt[0]) && Number.isFinite(h.pt[1]));
+    // Houses whose chapter is blank (or not a known chapter) go in an "unassigned" group.
+    const known = new Set(region.chapters.map(c => c.id));
+    for (const h of state.houses) if (!known.has(h.chapter)) h.chapter = UNASSIGNED;
 
     let boundaryFeatures = [];
     if (region.boundaries) {
@@ -76,6 +80,13 @@
       }
       state.chapters.set(info.id, ch);
     }
+    const unassigned = state.houses.filter(h => h.chapter === UNASSIGNED);
+    if (unassigned.length) {
+      state.chapters.set(UNASSIGNED, {
+        info: { id: UNASSIGNED, name: 'No chapter yet', color: '#8a8f98' },
+        features: [], layer: L.geoJSON(null), houses: unassigned, markers: [], visible: true, label: null,
+      });
+    }
 
     // Draw areas first so pins sit on top.
     for (const ch of state.chapters.values()) {
@@ -96,9 +107,12 @@
     if (all.length) map.fitBounds(all, { padding: [30, 30] });
 
     renderLegend();
+    const assignedCount = state.houses.filter(h => h.chapter !== UNASSIGNED).length;
     $('area-note').textContent = state.usesBoundaries
       ? 'Shaded areas are official chapter boundaries.'
-      : 'Shaded areas are approximate — drawn around each chapter’s houses.';
+      : assignedCount
+        ? 'Shaded areas are approximate — drawn around each chapter’s houses.'
+        : 'No houses have a chapter assigned yet, so chapter areas can’t be drawn.';
     $('search').value = '';
     renderResults('');
   }
@@ -120,7 +134,8 @@
     const addr = [h.address, h.city, h.state, h.zip].filter(Boolean).join(', ');
     return `<strong>${esc(h.name)}</strong><br>${esc(addr)}<br>
       <span style="color:${ch?.info.color};font-weight:700">${esc(ch?.info.name || 'Chapter ' + h.chapter)}</span>
-      ${h.gender ? ' · ' + esc(h.gender) : ''}`;
+      ${h.gender ? ' · ' + esc(h.gender) : ''}
+      ${h.phone ? `<br>House phone: <a href="tel:${esc(h.phone)}">${esc(h.phone)}</a>` : ''}`;
   }
 
   function renderLegend() {
@@ -285,7 +300,9 @@
       showSelection({
         color: ch?.info.color,
         title: hit.display_name.split(',').slice(0, 3).join(','),
-        chapter: ch ? ch.info.name : 'Outside all chapter areas',
+        chapter: ch ? ch.info.name
+          : state.houses.some(h => h.chapter !== UNASSIGNED) || state.usesBoundaries
+            ? 'Outside all chapter areas' : 'Chapters not set up yet',
         note: approx && nearest
           ? `Approximate — nearest house is ${nearest.name} (${nearest.km.toFixed(1)} km away).`
           : approx ? 'Approximate — based on nearby houses.' : '',
@@ -308,6 +325,7 @@
     // No official boundary contains it: fall back to the nearest house's chapter.
     let best = null;
     for (const h of state.houses) {
+      if (h.chapter === UNASSIGNED) continue;
       const km = Geo.distanceKm(pt, h.pt);
       if (!best || km < best.km) best = { km, name: h.name, chapter: h.chapter };
     }

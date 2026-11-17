@@ -7,7 +7,7 @@
       "zoom": 11,
       "housesCsv": "data/fort-worth/houses.csv",
       "boundaries": "data/fort-worth/chapters.geojson",
-      "sampleData": true,
+      "sampleData": false,
       "chapters": [
         { "id": "1", "name": "Chapter 1", "color": "#d7263d" },
         { "id": "2", "name": "Chapter 2", "color": "#1b998b" },

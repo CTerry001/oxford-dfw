@@ -1,19 +1,49 @@
-name,address,city,state,zip,chapter,gender,lat,lng
-Sample House 1A,(sample - replace),Fort Worth,TX,,1,Men,32.8010,-97.3520
-Sample House 1B,(sample - replace),Fort Worth,TX,,1,Women,32.8120,-97.3700
-Sample House 1C,(sample - replace),Fort Worth,TX,,1,Men,32.7920,-97.3330
-Sample House 2A,(sample - replace),Fort Worth,TX,,2,Men,32.7520,-97.2520
-Sample House 2B,(sample - replace),Fort Worth,TX,,2,Women,32.7620,-97.2300
-Sample House 2C,(sample - replace),Fort Worth,TX,,2,Men,32.7350,-97.2620
-Sample House 3A,(sample - replace),Fort Worth,TX,,3,Men,32.6830,-97.2900
-Sample House 3B,(sample - replace),Fort Worth,TX,,3,Women & Children,32.6920,-97.2700
-Sample House 3C,(sample - replace),Fort Worth,TX,,3,Men,32.7020,-97.3020
-Sample House 4A,(sample - replace),Fort Worth,TX,,4,Men,32.6820,-97.3900
-Sample House 4B,(sample - replace),Fort Worth,TX,,4,Women,32.6990,-97.4100
-Sample House 4C,(sample - replace),Fort Worth,TX,,4,Men,32.6700,-97.3700
-Sample House 5A,(sample - replace),Fort Worth,TX,,5,Men,32.7520,-97.4300
-Sample House 5B,(sample - replace),Fort Worth,TX,,5,Women,32.7400,-97.4500
-Sample House 5C,(sample - replace),Fort Worth,TX,,5,Men,32.7620,-97.4120
-Sample House 6A,(sample - replace),Fort Worth,TX,,6,Men,32.7300,-97.3330
-Sample House 6B,(sample - replace),Fort Worth,TX,,6,Women,32.7400,-97.3520
-Sample House 6C,(sample - replace),Fort Worth,TX,,6,Men,32.7200,-97.3200
+name,address,city,state,zip,chapter,gender,phone,lat,lng
+Ahavah,8121 Cloverglen Ln,Fort Worth,TX,76123,,Women,(817) 839-8559,32.6233452,-97.3629126
+Amor,5917 Maceo Lane,Fort Worth,TX,76112,,Men,(682) 301-1650,32.7259075,-97.2290079
+Aria,2858 Elsinor Drive,Fort Worth,TX,76116,,Women,(817) 386-2557,32.7337422,-97.4734047
+Bennett Ridge,7401 Vanessa Drive,Fort Worth,TX,76112,,Men,(682) 301-3140,32.7531981,-97.1983175
+Bluebonnet,5720 Maryview Terrace,Haltom City,TX,76117,,Women & Children,(817) 386-4573,32.8243236,-97.2611767
+Cactus Patch,6833 Quail Meadow Dr.,Watagua,TX,76148,,Men,(817) 849-9292,32.8704037,-97.2457118
+Catori,7948 Buttercup Cir N,Fort Worth,TX,76123,,Women,(682) 708-3008,32.6262245,-97.3808009
+Cherokee Rose,1305 Cherokee Rose Lane,Burleson,TX,76028,,Women,(682) 224-2934,32.5618008,-97.3460362
+Cliffside,1 Cliffside Dr,Edgecliff Village,TX,76134,,Men,(817) 238-3494,32.6570785,-97.3480900
+Coleman Bedford,2316 Stonegate Dr.,Bedford,TX,76021,,Men,(682) 503-4599,32.8453060,-97.1534721
+Coronet,6909 Quail Meadow Drive,North Richland Hills,TX,76180,,Men,(817) 479-7679,32.8716375,-97.2457143
+Cortez North,3221 Cortez Drive,Fort Worth,TX,76116,,Men,(817) 984-3371,32.7263426,-97.4647579
+Downey,1704 Downey Rd.,Fort Worth,TX,76112,,Women & Children,(682) 301-1404,32.7538831,-97.2106235
+Feather,1129 Fairweather Drive,Fort Worth,TX,76120,,Women,(682) 301-1544,32.7629887,-97.1934020
+Fielder,2314 Oak Manor,Arlington,TX,76012,,Men,(682) 706-3229,32.7420216,-97.1473593
+Florentine,1324 Florentine Dr.,Fort Worth,TX,76134,,Men,(817) 615-9217,32.6389867,-97.3396671
+Fort Worth,1465 Hedgewood Trail,Fort Worth,TX,76112,,Women & Children,(682) 301-1084,32.7570142,-97.1924511
+Fox Hollow,1974 Downey Drive,Fort Worth,TX,76112,,Men,(682) 301-1435,32.7488193,-97.2100107
+Hallmark,4608 Ivanhoe Dr.,Fort Worth,TX,76132,,Women,(817) 615-9362,32.6724407,-97.3911653
+Haltom,3121 Eastridge Dr.,Haltom City,TX,76117,,Men,(682) 707-9221,32.7998901,-97.2848233
+Hedgewood,7529 Hedgewood Ct.,Fort Worth,TX,76113,,Men,(682) 213-2373,32.7556971,-97.1927584
+Hollyberry,5028 Barberry Drive,Fort Worth,TX,76133,,Women,(682) 250-2223,32.6295668,-97.4006828
+Hulen,6301 Stockton Drive,Fort Worth,TX,76132,,Men,(817) 238-3430,32.6593122,-97.4156827
+Hurst,832 Overhill Ct.,Hurst,TX,76053,,Men,(817) 616-3730,32.8371966,-97.1884203
+Ivy Cottage,3928 Wren Avenue,Fort Worth,TX,76133,,Women,(817) 238-3467,32.66463,-97.3799341
+Kellerman,3700 Dawn Dr.,North Richland Hills,TX,76180,,Men,(682) 626-5891,32.8165064,-97.2463017
+Lake Worth,4624 St. Thomas Street,Fort Worth,TX,76135,,Women,(817) 720-6884,32.8232431,-97.4318189
+Mahala,2702 Shadow Wood Court,Arlington,TX,76006,,Women,(682) 323-5657,32.7818653,-97.0710630
+Marist,929 Marist Dr.,Fort Worth,TX,76120,,Men,(682) 301-1391,32.7670746,-97.2047065
+Mccart,5809 Mccart Avenue,Fort Worth,TX,76133,,Women,(682) 499-8331,32.6610695,-97.3560743
+Milam,4100 Hawthorn Lane,Fort Worth,TX,76137,,Men,(817) 720-6330,32.8682349,-97.2949972
+Nakron,1601 Holt Street,Fort Worth,TX,76103,,Men,(817) 238-3070,32.7553231,-97.2511050
+Nouvelle,8040 Southern Pine Way,Fort Worth,TX,76132,,Women,(682) 224-2332,32.6255829,-97.3668800
+Oakmont Meadows,6112 Bowin Drive,Fort Worth,TX,76132,,Men,(682) 224-3754,32.660605,-97.41208619999999
+Pantego,1405 Waggoner Drive,Arlington,TX,76013,,Men,(682) 323-5096,32.7219417,-97.1402454
+Periscope,5501 Tularosa Drive,Fort Worth,TX,76137,,Men,(817) 849-2694,32.8709964,-97.2675616
+Prosper,5420 Woodway Dr,Fort Worth,TX,76133,,Men,(682) 841-1180,32.6682744,-97.3772125
+Takini,3245 Lipscomb St.,Fort Worth,TX,76110,,Men,(682) 499-5549,32.7024424,-97.3339683
+Texan,9704 Francesca Dr.,Fort Worth,TX,76108,,Men,(682) 224-3381,32.7528684,-97.4857924
+Trail Lake,6401 Trail Lake Dr,Fort Worth,TX,76133,,Men,(682) 708-1818,32.6539346,-97.401161
+Umi,2248 North Sylvanina,Fort Worth,TX,76111,,Men,(817) 386-7322,32.7937443,-97.3082673
+Walton,3637 Bilglade Rd.,Fort Worth,TX,76133,,Women,(682) 250-5573,32.6763942,-97.3720222
+Wedgwood Square,5512 Woodway Dr,Fort Worth,TX,76133,,Men,(682) 250-6462,32.6650444,-97.3772758
+Westcreek,3716 Huntwick Drive,Fort Worth,TX,76132,,Men,(817) 349-0549,32.6267020,-97.3741730
+Wharton,7736 Blossom Dr.,Fort Worth,TX,76133,,Men,(817) 882-6386,32.6303128,-97.4023353
+Whistler,4917 Whistler Drive,Fort Worth,TX,76133,,Men,(817) 420-9350,32.6495767,-97.4003413
+Woodway,2405 Winthrop Ave.,Fort Worth,TX,76107,,Women,(817) 349-9003,32.7363050,-97.4143582
+Worthy,5116 Inverness Ave.,Fort Worth,TX,76132,,Men,(682) 224-3217,32.6722759,-97.3858140
