@@ -113,8 +113,12 @@
       state.layerGroup.addLayer(h.marker);
     }
 
-    const all = state.houses.map(h => [h.pt[1], h.pt[0]]);
-    if (all.length) map.fitBounds(all, { padding: [30, 30] });
+    // Frame the opening view on the region itself, so a far-off house in the same
+    // chapter (e.g. Wichita Falls) doesn't zoom the whole map out.
+    const center = [region.center[1], region.center[0]];
+    const nearby = state.houses.filter(h => Geo.distanceKm(center, h.pt) <= (region.radiusKm || 60))
+      .map(h => [h.pt[1], h.pt[0]]);
+    if (nearby.length) map.fitBounds(nearby, { padding: [30, 30] });
 
     renderLegend();
     const assignedCount = state.houses.filter(h => h.chapter !== UNASSIGNED).length;

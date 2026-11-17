@@ -35,7 +35,7 @@ If an address won't geocode, right-click the house in Google Maps, copy the numb
 
 Leave `chapter` blank for a house whose chapter you don't know yet; it shows as a gray "?" pin.
 
-The Tarrant County house list was copied from oxfordvacancies.com (Nov 2026). It does not update automatically.
+The house list was copied from oxfordvacancies.com (Nov 2026): all of Tarrant County plus 4 Burleson houses (Johnson County) and Big Bend (Wichita Falls). It does not update automatically.
 
 ### Chapter areas
 
