@@ -20,6 +20,7 @@
   };
   let activeIdx = -1, currentResults = [];  // search results state
   const UNASSIGNED = '?';
+  const TERRITORY_KM = 2;
 
   const { regions } = await fetch('data/regions.json').then(r => r.json());
   const select = $('region-select');
@@ -63,17 +64,26 @@
     }
     state.usesBoundaries = boundaryFeatures.length > 0;
 
+    // Without official boundaries, each house gets a "territory": the area nearer to it
+    // than to any other house (capped at TERRITORY_KM). Unassigned houses take part so
+    // that a chapter's color never spreads over a house we don't know about.
+    if (!state.usesBoundaries) {
+      Geo.territories(state.houses.map(h => h.pt), TERRITORY_KM)
+        .forEach((ring, i) => { state.houses[i].territory = ring; });
+    }
+
     for (const info of region.chapters) {
       const houses = state.houses.filter(h => h.chapter === info.id);
       let features = boundaryFeatures.filter(f => String(f.properties?.chapter) === info.id);
-      if (!state.usesBoundaries && houses.length) {
+      const rings = houses.map(h => h.territory).filter(Boolean);
+      if (!state.usesBoundaries && rings.length) {
         features = [{ type: 'Feature', properties: { chapter: info.id },
-          geometry: { type: 'Polygon', coordinates: [Geo.paddedHull(houses.map(h => h.pt))] } }];
+          geometry: { type: 'MultiPolygon', coordinates: rings.map(r => [r]) } }];
       }
       const layer = L.geoJSON(features, { style: baseStyle(info), interactive: true })
         .on('click', () => focusChapter(info.id));
       const ch = { info, features, layer, houses, markers: [], visible: true, label: null };
-      if (features.length) {
+      if (features.length && state.usesBoundaries) {
         const c = layer.getBounds().getCenter();
         ch.label = L.tooltip({ permanent: true, direction: 'center', className: 'chapter-label' })
           .setLatLng(c).setContent(`<span style="color:${info.color}">Ch ${esc(info.id)}</span>`);
@@ -111,14 +121,17 @@
     $('area-note').textContent = state.usesBoundaries
       ? 'Shaded areas are official chapter boundaries.'
       : assignedCount
-        ? 'Shaded areas are approximate — drawn around each chapter’s houses.'
+        ? `Shaded areas are approximate: each spot is colored by its nearest house (within ${TERRITORY_KM} km).`
         : 'No houses have a chapter assigned yet, so chapter areas can’t be drawn.';
     $('search').value = '';
     renderResults('');
   }
 
   function baseStyle(info) {
-    return { color: info.color, weight: 2, fillColor: info.color, fillOpacity: 0.15, opacity: 0.8 };
+    // Territories are many small cells: fill only, so cell edges don't clutter the map.
+    return state.usesBoundaries
+      ? { color: info.color, weight: 2, fillColor: info.color, fillOpacity: 0.15, opacity: 0.8 }
+      : { stroke: false, fillColor: info.color, fillOpacity: 0.22 };
   }
 
   function pinIcon(chapter, color, selected = false) {
@@ -286,7 +299,7 @@
         return;
       }
       const pt = [parseFloat(hit.lon), parseFloat(hit.lat)];
-      const { id, approx, nearest } = chapterForPoint(pt);
+      const { id, nearest, note } = chapterForPoint(pt);
       const ch = id && state.chapters.get(id);
 
       if (state.lookupMarker) map.removeLayer(state.lookupMarker);
@@ -301,11 +314,9 @@
         color: ch?.info.color,
         title: hit.display_name.split(',').slice(0, 3).join(','),
         chapter: ch ? ch.info.name
-          : state.houses.some(h => h.chapter !== UNASSIGNED) || state.usesBoundaries
-            ? 'Outside all chapter areas' : 'Chapters not set up yet',
-        note: approx && nearest
-          ? `Approximate — nearest house is ${nearest.name} (${nearest.km.toFixed(1)} km away).`
-          : approx ? 'Approximate — based on nearby houses.' : '',
+          : nearest?.chapter === UNASSIGNED ? 'Chapter unknown'
+          : 'Outside all chapter areas',
+        note,
       });
     } catch (err) {
       showSelection({ title: q, chapter: 'Lookup failed', note: 'Check your connection and try again.' });
@@ -317,19 +328,27 @@
   }
 
   function chapterForPoint(pt) {
-    for (const ch of state.chapters.values()) {
-      if (state.usesBoundaries && ch.features.some(f => Geo.pointInGeometry(pt, f.geometry))) {
-        return { id: ch.info.id, approx: false };
+    if (state.usesBoundaries) {
+      for (const ch of state.chapters.values()) {
+        if (ch.features.some(f => Geo.pointInGeometry(pt, f.geometry))) return { id: ch.info.id };
       }
+      return { id: null };
     }
-    // No official boundary contains it: fall back to the nearest house's chapter.
+    // No official boundaries: use the nearest house (same rule the shading uses).
     let best = null;
     for (const h of state.houses) {
-      if (h.chapter === UNASSIGNED) continue;
       const km = Geo.distanceKm(pt, h.pt);
       if (!best || km < best.km) best = { km, name: h.name, chapter: h.chapter };
     }
-    if (state.usesBoundaries) return { id: null, approx: false };
-    return best ? { id: best.chapter, approx: true, nearest: best } : { id: null };
+    if (!best) return { id: null, note: 'No houses loaded.' };
+    const where = `${best.name} (${best.km.toFixed(1)} km away)`;
+    if (best.chapter === UNASSIGNED) {
+      return { id: null, nearest: best, note: `Nearest house is ${where}, which has no chapter assigned yet.` };
+    }
+    if (best.km > TERRITORY_KM) {
+      const name = state.chapters.get(best.chapter)?.info.name;
+      return { id: null, nearest: best, note: `No house within ${TERRITORY_KM} km. Nearest is ${where}, ${name}.` };
+    }
+    return { id: best.chapter, nearest: best, note: `Approximate: nearest house is ${where}.` };
   }
 })();

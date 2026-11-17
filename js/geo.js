@@ -24,41 +24,6 @@ window.Geo = (() => {
       .map(r => Object.fromEntries(header.map((h, i) => [h, (r[i] || '').trim()])));
   }
 
-  // Andrew's monotone chain convex hull.
-  function convexHull(points) {
-    const pts = points.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]);
-    if (pts.length < 3) return pts;
-    const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
-    const lower = [], upper = [];
-    for (const p of pts) {
-      while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) lower.pop();
-      lower.push(p);
-    }
-    for (let i = pts.length - 1; i >= 0; i--) {
-      const p = pts[i];
-      while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop();
-      upper.push(p);
-    }
-    upper.pop(); lower.pop();
-    return lower.concat(upper);
-  }
-
-  // Padded hull around a set of house points: each point is expanded into a
-  // small circle first, so 1 or 2 houses still produce a sensible area.
-  function paddedHull(points, radiusDeg = 0.009) {
-    const ring = [];
-    for (const [x, y] of points) {
-      for (let k = 0; k < 16; k++) {
-        const a = (k / 16) * 2 * Math.PI;
-        // longitude degrees are shorter at this latitude; widen to look round
-        ring.push([x + (radiusDeg / Math.cos(y * Math.PI / 180)) * Math.cos(a), y + radiusDeg * Math.sin(a)]);
-      }
-    }
-    const hull = convexHull(ring);
-    hull.push(hull[0]);
-    return hull;
-  }
-
   function pointInRing([x, y], ring) {
     let inside = false;
     for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
@@ -83,5 +48,49 @@ window.Geo = (() => {
     return 2 * R * Math.asin(Math.sqrt(a));
   }
 
-  return { parseCsv, paddedHull, pointInGeometry, distanceKm };
+  // "Territory" for each house: the area closer to it than to any other house
+  // (a Voronoi cell), capped to a circle of radiusKm. Returns one ring per point.
+  function territories(points, radiusKm = 2) {
+    if (!points.length) return [];
+    // Work in a local flat projection (km) around the average latitude.
+    const lat0 = points.reduce((s, p) => s + p[1], 0) / points.length;
+    const kx = 111.32 * Math.cos(lat0 * Math.PI / 180), ky = 110.57;
+    const P = points.map(([x, y]) => [x * kx, y * ky]);
+    const back = ([x, y]) => [x / kx, y / ky];
+
+    return P.map((pi, i) => {
+      let poly = [];
+      for (let k = 0; k < 32; k++) {
+        const a = (k / 32) * 2 * Math.PI;
+        poly.push([pi[0] + radiusKm * Math.cos(a), pi[1] + radiusKm * Math.sin(a)]);
+      }
+      for (let j = 0; j < P.length && poly.length; j++) {
+        const pj = P[j];
+        if (j === i) continue;
+        const dx = pj[0] - pi[0], dy = pj[1] - pi[1];
+        if (dx * dx + dy * dy > 4 * radiusKm * radiusKm) continue;
+        if (dx === 0 && dy === 0) { if (j < i) poly = []; continue; } // duplicate location
+        // Keep the half-plane closer to pi: (p - mid) · (pj - pi) <= 0
+        const mx = (pi[0] + pj[0]) / 2, my = (pi[1] + pj[1]) / 2;
+        const side = p => (p[0] - mx) * dx + (p[1] - my) * dy;
+        const out = [];
+        for (let k = 0; k < poly.length; k++) {
+          const a = poly[k], b = poly[(k + 1) % poly.length];
+          const sa = side(a), sb = side(b);
+          if (sa <= 0) out.push(a);
+          if ((sa <= 0) !== (sb <= 0)) {
+            const t = sa / (sa - sb);
+            out.push([a[0] + t * (b[0] - a[0]), a[1] + t * (b[1] - a[1])]);
+          }
+        }
+        poly = out;
+      }
+      if (poly.length < 3) return null;
+      const ring = poly.map(back);
+      ring.push(ring[0]);
+      return ring;
+    });
+  }
+
+  return { parseCsv, territories, pointInGeometry, distanceKm };
 })();

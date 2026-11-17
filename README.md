@@ -33,11 +33,13 @@ Everything lives in `data/`:
 
 If an address won't geocode, right-click the house in Google Maps, copy the numbers, and paste them into `lat` and `lng`.
 
-When the real data is in, delete the sample rows and set `"sampleData": false` in `regions.json` to hide the yellow banner.
+Leave `chapter` blank for a house whose chapter you don't know yet; it shows as a gray "?" pin.
+
+The Tarrant County house list was copied from oxfordvacancies.com (Nov 2026). It does not update automatically.
 
 ### Chapter areas
 
-- **No boundary file (default):** each chapter's shaded area is drawn automatically around its houses. Address lookups use the nearest house's chapter, and the app labels the result "approximate".
+- **No boundary file (default):** every spot within 2 km of a house is shaded in the color of its *nearest* house's chapter (so chapters that share a neighborhood, like 10 and 28, split it cleanly). Address lookups use the same nearest-house rule, and the app labels the result "approximate". Change the 2 km with `TERRITORY_KM` in `js/app.js`.
 - **Official boundaries:** draw them at [geojson.io](https://geojson.io), add a property `"chapter": "10"` (e.g. "10", "14", "18", "28", "41", "44") to each shape, and save the result as `data/fort-worth/chapters.geojson`. The app then uses those exact shapes, and address lookups become exact.
 
 ### Adding Dallas
