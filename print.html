@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fort Worth Chapters Handout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <style>
+    @page { size: letter; margin: 0; }
+    :root {
+      --ink: #1c2230;
+      --muted: #667085;
+      --line: #e6e8ec;
+      --paper: #ffffff;
+      --wash: #f7f6f2;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #fff; }
+    body { font-family: Inter, system-ui, sans-serif; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page {
+      width: 8.5in; height: 10.99in; margin: 0 auto; background: var(--paper);
+      padding: 0.38in 0.4in 0.32in; display: flex; flex-direction: column; overflow: hidden;
+    }
+
+    header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 0.14in; }
+    .eyebrow { font-size: 8.5pt; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+    h1 { font-family: Fraunces, Georgia, serif; font-weight: 700; font-size: 26pt; line-height: 1.05; margin: 2px 0 0; letter-spacing: -.01em; }
+    .stats { display: flex; gap: 0.22in; text-align: right; }
+    .stat b { display: block; font-family: Fraunces, Georgia, serif; font-size: 20pt; line-height: 1; }
+    .stat span { font-size: 7.5pt; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+
+    .map-wrap { position: relative; flex: none; height: 3.85in; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
+    #map { position: absolute; inset: 0; background: #f2f2ef; }
+    /* Soften the street map so the chapter colors stand out */
+    .leaflet-tile-pane { filter: grayscale(1) brightness(1.06) contrast(.82); opacity: .8; }
+    .leaflet-control-attribution { font-size: 6pt !important; background: rgba(255,255,255,.8) !important; }
+    .pin {
+      width: 19px; height: 19px; border-radius: 50%; color: #fff;
+      font: 700 7.5pt/1 Inter, sans-serif; display: flex; align-items: center; justify-content: center;
+      border: 1.5px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,.35);
+    }
+    .map-key {
+      position: absolute; left: 10px; top: 10px; z-index: 500;
+      background: rgba(255,255,255,.94); border-radius: 8px; padding: 7px 9px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.15); font-size: 7.5pt;
+    }
+    .map-key .gender { border-top: 1px solid var(--line); margin-top: 4px; padding-top: 4px; display: block; font-weight: 500; }
+    .map-key .gender span { margin-right: 2px; }
+    .map-key div { display: flex; align-items: center; gap: 6px; padding: 1.5px 0; font-weight: 600; }
+    .map-key i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+    .chapters {
+      flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.12in;
+      margin-top: 0.16in; align-content: start;
+    }
+    .card { border: 1px solid var(--line); border-radius: 9px; overflow: hidden; background: var(--paper); }
+    .card-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      padding: 5px 9px 5px; color: #fff;
+    }
+    .card-head h2 { margin: 0; font-family: Fraunces, Georgia, serif; font-size: 12.5pt; font-weight: 600; }
+    .card-head span { font-size: 7pt; font-weight: 600; opacity: .92; }
+    .card-area { font-size: 6.8pt; color: var(--muted); padding: 4px 9px 2px; font-weight: 500; }
+    ul { list-style: none; margin: 0; padding: 0 9px 6px; }
+    li {
+      display: grid; grid-template-columns: auto 1fr auto; column-gap: 6px; align-items: baseline;
+      padding: 1.5px 0; border-bottom: 1px solid #f0f1f3; font-size: 7.3pt; line-height: 1.2;
+    }
+    li:last-child { border-bottom: none; }
+    li .name { font-weight: 600; white-space: nowrap; }
+    li .addr { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 6.8pt; }
+    .tag { font-size: 6pt; font-weight: 700; padding: 1px 4px; border-radius: 4px; letter-spacing: .02em; }
+    .tag.M { background: #e8eef9; color: #2c4f8f; }
+    .tag.W { background: #fbe9ef; color: #9b2c55; }
+    .tag.WC { background: #f6ecfb; color: #6d2f8f; }
+
+    footer {
+      display: flex; align-items: center; gap: 0.16in; margin-top: 0.12in;
+      padding-top: 0.12in; border-top: 1px solid var(--line);
+    }
+    #qr { width: 0.64in; height: 0.64in; flex: none; }
+    #qr img, #qr canvas { width: 100% !important; height: 100% !important; }
+    .foot-main { flex: 1; font-size: 8pt; line-height: 1.45; }
+    .foot-main b { font-size: 9.5pt; }
+    .foot-main .url { font-weight: 700; color: var(--ink); }
+    .foot-side { font-size: 6.5pt; color: var(--muted); text-align: right; line-height: 1.45; max-width: 3.4in; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div>
+        <div class="eyebrow">Oxford House · Texas</div>
+        <h1>Fort Worth Area Chapters</h1>
+      </div>
+      <div class="stats">
+        <div class="stat"><b id="n-chapters">–</b><span>Chapters</span></div>
+        <div class="stat"><b id="n-houses">–</b><span>Houses</span></div>
+      </div>
+    </header>
+
+    <div class="map-wrap">
+      <div id="map"></div>
+      <div class="map-key" id="key"></div>
+    </div>
+
+    <section class="chapters" id="chapters"></section>
+
+    <footer>
+      <div id="qr"></div>
+      <div class="foot-main">
+        <b>Find your chapter online</b><br>
+        Search any house or address on the interactive map:<br>
+        <span class="url" id="site-url"></span>
+      </div>
+      <div class="foot-side">
+        Vacancies &amp; house phones: oxfordvacancies.com<br>
+        Community-made · not an official Oxford House, Inc. publication<br>
+        <span id="updated"></span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="js/geo.js"></script>
+  <script>
+  (async () => {
+    const SITE = 'https://cterry001.github.io/oxford-dfw/';
+    const TERRITORY_KM = 2, NEAR_KM = 60;
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const params = new URLSearchParams(location.search);
+
+    const { regions } = await fetch('data/regions.json').then(r => r.json());
+    const region = regions.find(r => r.id === (params.get('region') || 'fort-worth')) || regions[0];
+    const houses = Geo.parseCsv(await fetch(region.housesCsv).then(r => r.text()))
+      .map(h => ({ ...h, pt: [parseFloat(h.lng), parseFloat(h.lat)] }))
+      .filter(h => Number.isFinite(h.pt[0]) && Number.isFinite(h.pt[1]));
+    const chapters = region.chapters.map(c => ({
+      ...c, houses: houses.filter(h => h.chapter === c.id).sort((a, b) => a.name.localeCompare(b.name)),
+    })).filter(c => c.houses.length);
+    const colorOf = id => chapters.find(c => c.id === id)?.color || '#8a8f98';
+
+    document.getElementById('n-chapters').textContent = chapters.length;
+    document.getElementById('n-houses').textContent = houses.length;
+    document.getElementById('site-url').textContent = SITE.replace(/^https:\/\//, '').replace(/\/$/, '');
+    document.getElementById('updated').textContent =
+      'Updated ' + new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+    // ---- Chapter cards ----
+    const tagFor = g => /child/i.test(g) ? ['WC', 'W+C'] : /^w/i.test(g) ? ['W', 'W'] : ['M', 'M'];
+    const cityName = c => c === 'Watagua' ? 'Watauga' : c;  // typo in source data
+    const shortCity = h => (h.city && h.city !== 'Fort Worth') ? `, ${cityName(h.city)}` : '';
+    const areaOf = c => {
+      const cities = [...new Set(c.houses.map(h => cityName(h.city)))];
+      return cities.length > 3 ? cities.slice(0, 3).join(' · ') + ' & more' : cities.join(' · ');
+    };
+    document.getElementById('chapters').innerHTML = chapters.map(c => `
+      <article class="card">
+        <div class="card-head" style="background:${c.color}">
+          <h2>Chapter ${esc(c.id)}</h2><span>${c.houses.length} houses</span>
+        </div>
+        <div class="card-area">${esc(areaOf(c))}</div>
+        <ul>${c.houses.map(h => {
+          const [cls, label] = tagFor(h.gender);
+          return `<li><span class="name">${esc(h.name)}</span>
+            <span class="addr">${esc(h.address.replace(/\.$/, ''))}${esc(shortCity(h))}</span>
+            <span class="tag ${cls}">${label}</span></li>`;
+        }).join('')}</ul>
+      </article>`).join('');
+
+    // ---- Map ----
+    const map = L.map('map', { zoomControl: false, zoomSnap: 0.1, attributionControl: true, fadeAnimation: false, zoomAnimation: false });
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19, attribution: '© OpenStreetMap contributors',
+    }).addTo(map);
+
+    const center = [region.center[1], region.center[0]];
+    const near = h => Geo.distanceKm(center, h.pt) <= NEAR_KM;
+    const rings = Geo.territories(houses.map(h => h.pt), TERRITORY_KM);
+    houses.forEach((h, i) => { h.territory = rings[i]; });
+
+    for (const c of chapters) {
+      const polys = c.houses.map(h => h.territory).filter(Boolean).map(r => [r]);
+      L.geoJSON({ type: 'Feature', geometry: { type: 'MultiPolygon', coordinates: polys } },
+        { style: { stroke: false, fillColor: c.color, fillOpacity: 0.3 } }).addTo(map);
+    }
+    for (const h of houses) {
+      L.marker([h.pt[1], h.pt[0]], { icon: L.divIcon({
+        className: '', iconSize: [19, 19], iconAnchor: [9.5, 9.5],
+        html: `<div class="pin" style="background:${colorOf(h.chapter)}">${esc(h.chapter)}</div>`,
+      }) }).addTo(map);
+    }
+    map.invalidateSize();
+    map.fitBounds(houses.filter(near).map(h => [h.pt[1], h.pt[0]]), { paddingTopLeft: [110, 20], paddingBottomRight: [20, 20] });
+
+    document.getElementById('key').innerHTML = chapters.map(c =>
+      `<div><i style="background:${c.color}"></i>Chapter ${esc(c.id)}</div>`).join('') +
+      `<span class="gender"><span class="tag M">M</span> Men</span>
+       <span class="gender" style="border:0;margin:0;padding-top:2px"><span class="tag W">W</span> Women</span>
+       <span class="gender" style="border:0;margin:0;padding-top:2px"><span class="tag WC">W+C</span> Women &amp; kids</span>`;
+
+    // ---- QR code ----
+    new QRCode(document.getElementById('qr'), { text: SITE, width: 256, height: 256, colorDark: '#1c2230', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+  })();
+  </script>
+</body>
+</html>
