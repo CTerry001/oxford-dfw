@@ -1,0 +1,19 @@
+name,address,city,state,zip,chapter,gender,lat,lng
+Sample House 1A,(sample - replace),Fort Worth,TX,,1,Men,32.8010,-97.3520
+Sample House 1B,(sample - replace),Fort Worth,TX,,1,Women,32.8120,-97.3700
+Sample House 1C,(sample - replace),Fort Worth,TX,,1,Men,32.7920,-97.3330
+Sample House 2A,(sample - replace),Fort Worth,TX,,2,Men,32.7520,-97.2520
+Sample House 2B,(sample - replace),Fort Worth,TX,,2,Women,32.7620,-97.2300
+Sample House 2C,(sample - replace),Fort Worth,TX,,2,Men,32.7350,-97.2620
+Sample House 3A,(sample - replace),Fort Worth,TX,,3,Men,32.6830,-97.2900
+Sample House 3B,(sample - replace),Fort Worth,TX,,3,Women & Children,32.6920,-97.2700
+Sample House 3C,(sample - replace),Fort Worth,TX,,3,Men,32.7020,-97.3020
+Sample House 4A,(sample - replace),Fort Worth,TX,,4,Men,32.6820,-97.3900
+Sample House 4B,(sample - replace),Fort Worth,TX,,4,Women,32.6990,-97.4100
+Sample House 4C,(sample - replace),Fort Worth,TX,,4,Men,32.6700,-97.3700
+Sample House 5A,(sample - replace),Fort Worth,TX,,5,Men,32.7520,-97.4300
+Sample House 5B,(sample - replace),Fort Worth,TX,,5,Women,32.7400,-97.4500
+Sample House 5C,(sample - replace),Fort Worth,TX,,5,Men,32.7620,-97.4120
+Sample House 6A,(sample - replace),Fort Worth,TX,,6,Men,32.7300,-97.3330
+Sample House 6B,(sample - replace),Fort Worth,TX,,6,Women,32.7400,-97.3520
+Sample House 6C,(sample - replace),Fort Worth,TX,,6,Men,32.7200,-97.3200

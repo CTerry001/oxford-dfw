@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Oxford House Chapter Map</title>
+  <meta name="description" content="Find which Oxford House chapter a house belongs to.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Oxford House Chapter Map</h1>
+    <label class="region-picker">
+      <span class="sr-only">Region</span>
+      <select id="region-select"></select>
+    </label>
+  </header>
+
+  <div id="sample-banner" class="banner" hidden>
+    Showing <strong>sample data</strong> — house locations and chapter areas are placeholders.
+  </div>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="search">
+        <input id="search" type="search" placeholder="Search house name or address…" autocomplete="off">
+        <ul id="results" class="results"></ul>
+        <button id="lookup-btn" class="lookup" hidden></button>
+      </div>
+
+      <div id="selection" class="selection" hidden></div>
+
+      <section>
+        <h2>Chapters</h2>
+        <ul id="legend" class="legend"></ul>
+        <p id="area-note" class="note"></p>
+      </section>
+    </aside>
+
+    <div id="map" class="map"></div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="js/geo.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
