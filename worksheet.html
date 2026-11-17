@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter Worksheet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <style>
+    @page { size: letter; margin: 0; }
+    :root { --ink: #1c2230; --muted: #667085; --line: #e6e8ec; --paper: #fff; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #fff; }
+    body { font-family: Inter, system-ui, sans-serif; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page {
+      width: 8.5in; height: 10.99in; padding: 0.36in 0.34in 0.3in; background: var(--paper);
+      display: flex; flex-direction: column; overflow: hidden; page-break-after: always; break-after: page;
+    }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+
+    header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 0.14in; }
+    .eyebrow { font-size: 8.5pt; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+    h1 { font-family: Fraunces, Georgia, serif; font-weight: 700; font-size: 26pt; line-height: 1.05; margin: 2px 0 0; }
+    .sub { font-size: 9pt; color: var(--muted); margin-top: 4px; }
+    .stats { display: flex; gap: 0.22in; text-align: right; }
+    .stat b { display: block; font-family: Fraunces, Georgia, serif; font-size: 20pt; line-height: 1; }
+    .stat span { font-size: 7.5pt; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+
+    .map-wrap { position: relative; flex: none; height: 5.6in; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
+    #map { position: absolute; inset: 0; background: #f2f2ef; }
+    .leaflet-tile-pane { filter: grayscale(1) brightness(1.06) contrast(.82); opacity: .8; }
+    .leaflet-control-attribution { font-size: 6pt !important; background: rgba(255,255,255,.8) !important; }
+    .pin {
+      min-width: 17px; height: 17px; padding: 0 2px; border-radius: 9px; color: #fff;
+      font: 700 6.5pt/1 Inter, sans-serif; display: flex; align-items: center; justify-content: center;
+      border: 1.2px solid #fff; box-shadow: 0 1px 2px rgba(0,0,0,.35);
+    }
+    .map-key {
+      position: absolute; right: 10px; top: 10px; z-index: 500; background: rgba(255,255,255,.94);
+      border-radius: 8px; padding: 7px 9px; box-shadow: 0 1px 4px rgba(0,0,0,.15); font-size: 7.5pt;
+    }
+    .map-key div { display: flex; align-items: center; gap: 6px; padding: 1.5px 0; font-weight: 600; }
+    .map-key i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .map-key .hint { font-weight: 400; color: var(--muted); max-width: 1.6in; padding-top: 4px; display: block; }
+
+    .lower { display: grid; grid-template-columns: 1.15fr 1fr; gap: 0.2in; margin-top: 0.18in; flex: 1; }
+    .box { border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; }
+    .box h2 { font-family: Fraunces, Georgia, serif; font-size: 13pt; margin: 0 0 6px; font-weight: 600; }
+    .box ol { margin: 0; padding-left: 16px; font-size: 8.6pt; line-height: 1.5; }
+    .box p { font-size: 8.6pt; line-height: 1.5; margin: 6px 0 0; }
+    .blank { display: inline-block; border-bottom: 1px solid #9aa3b2; min-width: 2.2in; height: 12px; vertical-align: bottom; }
+    table.ch { width: 100%; border-collapse: collapse; font-size: 8pt; }
+    table.ch th { text-align: left; font-weight: 600; color: var(--muted); font-size: 7pt; text-transform: uppercase; letter-spacing: .06em; padding-bottom: 3px; }
+    table.ch td { border-bottom: 1px solid #c9ced6; height: 0.29in; }
+    table.ch td:first-child { width: 0.7in; }
+
+    .list-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.1in; }
+    .list-head h2 { font-family: Fraunces, Georgia, serif; font-size: 16pt; margin: 0; }
+    .list-head span { font-size: 8pt; color: var(--muted); }
+    .cols { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 0.2in; min-height: 0; }
+    .col { min-height: 0; overflow: hidden; }
+    .city {
+      font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #3d4555;
+      padding: 7px 0 3px; border-bottom: 1.5px solid var(--ink); display: flex; justify-content: space-between;
+    }
+    .city small { font-weight: 500; letter-spacing: .04em; color: var(--muted); text-transform: none; }
+    .row {
+      display: grid; grid-template-columns: 0.3in 0.9in minmax(0, 1fr) 0.37in 0.27in 0.5in;
+      column-gap: 4px; align-items: center; height: 0.272in; border-bottom: 1px solid #eef0f3; font-size: 7.6pt;
+    }
+    .row .n { font-weight: 700; color: #fff; border-radius: 9px; text-align: center; font-size: 6.6pt; line-height: 15px; height: 15px; }
+    .row .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .row .street { font: 500 7.2pt 'Inter Tight', Inter, sans-serif; color: #3d4555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .row .zip { font: 400 6.9pt 'Inter Tight', Inter, sans-serif; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .row .zip.bad { color: #b42318; font-weight: 600; }
+    .row .ch { display: flex; align-items: center; gap: 3px; font-size: 6.5pt; color: var(--muted); font-weight: 600; }
+    .row .ch i { flex: 1; height: 0.19in; border: 1px solid #9aa3b2; border-radius: 3px; background: #fffdf5; }
+    .tag { font-size: 5.7pt; font-weight: 700; padding: 1px 3px; border-radius: 4px; text-align: center; }
+    .tag.M { background: #e8eef9; color: #2c4f8f; }
+    .tag.W { background: #fbe9ef; color: #9b2c55; }
+    .tag.WC { background: #f6ecfb; color: #6d2f8f; }
+
+    .closeup { margin-top: 10px; }
+    .closeup h3 { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #3d4555;
+      margin: 0; padding: 7px 0 4px; border-bottom: 1.5px solid var(--ink); display: flex; justify-content: space-between; }
+    .closeup h3 small { font-weight: 500; letter-spacing: .04em; color: var(--muted); text-transform: none; }
+    .closeup .cmap { margin-top: 6px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #f2f2ef; }
+    .area-label { background: rgba(255,255,255,.9); border: none; box-shadow: none; font: 700 7pt Inter, sans-serif; color: #3d4555; padding: 1px 4px; }
+    .area-label::before { display: none; }
+    footer { display: flex; justify-content: space-between; align-items: center; font-size: 7pt; color: var(--muted); margin-top: 0.1in; padding-top: 0.08in; border-top: 1px solid var(--line); }
+    #qr { width: 0.62in; height: 0.62in; }
+    #qr img, #qr canvas { width: 100% !important; height: 100% !important; }
+  </style>
+</head>
+<body>
+  <div class="page" id="p1">
+    <header>
+      <div>
+        <div class="eyebrow">Oxford House · Texas</div>
+        <h1 id="title">Chapter Worksheet</h1>
+        <div class="sub" id="subtitle"></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><b id="n-houses">–</b><span>Houses</span></div>
+        <div class="stat"><b id="n-cities">–</b><span>Cities</span></div>
+      </div>
+    </header>
+    <div class="map-wrap">
+      <div id="map"></div>
+      <div class="map-key" id="key"></div>
+    </div>
+    <div class="lower">
+      <div class="box">
+        <h2>How to fill this in</h2>
+        <ol>
+          <li>Find each house on the next pages. Its number matches the pin on the map.</li>
+          <li>Write its chapter number in the <b>Ch.</b> box.</li>
+          <li>Address wrong, house closed, or renamed? Write it next to the house.</li>
+          <li>Missing a house? Add it at the end of the list.</li>
+        </ol>
+        <p>Not sure? Leave it blank. Partial answers still help.</p>
+        <p style="margin-top:10px">Return to: <span class="blank"></span></p>
+      </div>
+      <div class="box">
+        <h2>Chapters in this area</h2>
+        <table class="ch">
+          <tr><th>Chapter #</th><th>Area it covers</th></tr>
+          <tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr><tr><td></td><td></td></tr>
+        </table>
+      </div>
+    </div>
+    <footer>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div id="qr"></div>
+        <div><b style="color:var(--ink);font-size:8pt">See the live map</b><br><span id="site-url"></span><br>House list from oxfordvacancies.com · <span id="updated"></span></div>
+      </div>
+      <div style="text-align:right">Community-made · not an official Oxford House, Inc. publication<br>Page 1 of <span class="total"></span></div>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="js/geo.js"></script>
+  <script>
+  (async () => {
+    const SITE = 'https://cterry001.github.io/oxford-dfw/';
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const params = new URLSearchParams(location.search);
+    const { regions } = await fetch('data/regions.json').then(r => r.json());
+    const region = regions.find(r => r.id === (params.get('region') || 'dallas')) || regions[0];
+
+    // County per house isn't in the CSV; group by city, ordered the same way as the Google Sheet.
+    const COUNTY_COLORS = { Collin: '#2e5eaa', Dallas: '#1b998b', Denton: '#d7263d' };
+    const counties = params.get('counties') ? JSON.parse(params.get('counties')) : null;
+    const CITY_FIX = { Carrolton: 'Carrollton', Watagua: 'Watauga' };  // typos in source data
+    let houses = Geo.parseCsv(await fetch(region.housesCsv).then(r => r.text()))
+      .map(h => ({ ...h, city: CITY_FIX[h.city] || h.city, pt: [parseFloat(h.lng), parseFloat(h.lat)] }))
+      .filter(h => Number.isFinite(h.pt[0]));
+    const countyOf = await fetch('data/' + region.id + '/counties.json').then(r => r.ok ? r.json() : {}).catch(() => ({}));
+    houses.forEach(h => { h.county = countyOf[h.name] || ''; });
+    houses.sort((a, b) => a.county.localeCompare(b.county) || a.city.localeCompare(b.city) || a.name.localeCompare(b.name));
+    houses.forEach((h, i) => { h.n = i + 1; });
+    const colorOf = h => COUNTY_COLORS[h.county] || '#5b6475';
+
+    const cities = [...new Set(houses.map(h => h.city))];
+    document.getElementById('title').textContent = `${region.name.split(' ·')[0]} Area Chapter Worksheet`;
+    document.getElementById('subtitle').textContent = region.name.replace(/ · /g, ', ').replace(/, ([^,]+)$/, ' and $1') + ' counties';
+    document.getElementById('n-houses').textContent = houses.length;
+    document.getElementById('n-cities').textContent = cities.length;
+    document.getElementById('site-url').textContent = SITE.replace(/^https:\/\//, '').replace(/\/$/, '');
+    document.getElementById('updated').textContent = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    const usedCounties = [...new Set(houses.map(h => h.county).filter(Boolean))];
+    document.getElementById('key').innerHTML = usedCounties.map(c =>
+      `<div><i style="background:${COUNTY_COLORS[c] || '#5b6475'}"></i>${esc(c)} County</div>`).join('') +
+      '<span class="hint">Pin numbers match the list on the next pages.</span>';
+
+    // ---- House list pages ----
+    const ABBR = { drive: 'Dr', road: 'Rd', lane: 'Ln', street: 'St', avenue: 'Ave', court: 'Ct', circle: 'Cir',
+      trail: 'Trl', terrace: 'Ter', place: 'Pl', boulevard: 'Blvd', parkway: 'Pkwy',
+      north: 'N', south: 'S', east: 'E', west: 'W', northeast: 'NE', northwest: 'NW', southeast: 'SE', southwest: 'SW' };
+    const DIR = new Set(['N', 'S', 'E', 'W', 'NE', 'NW', 'SE', 'SW']);
+    const shortStreet = s => {
+      const w = s.replace(/\./g, '').split(/\s+/);
+      const ab = i => { const a = ABBR[w[i]?.toLowerCase()]; if (a) w[i] = a; };
+      const isDir = i => DIR.has(ABBR[w[i]?.toLowerCase()] || w[i]);
+      if (w.length > 2 && isDir(1)) ab(1);
+      let last = w.length - 1;
+      if (last > 2 && isDir(last)) { ab(last); last--; }
+      if (last > 1 && !isDir(last)) ab(last);
+      return w.join(' ');
+    };
+    const tagFor = g => /child/i.test(g) ? ['WC', 'W+C'] : /^w/i.test(g) ? ['W', 'W'] : ['M', 'M'];
+    // ZIPs that are missing or not in the DFW 75xxx/76xxx range get flagged in red to double-check.
+    const badZip = z => !/^7[56]\d{3}$/.test(z) || ['75808', '75288'].includes(z);
+
+    const items = [];
+    let lastKey = '';
+    for (const h of houses) {
+      const key = h.city + '|' + h.county;
+      if (key !== lastKey) {
+        items.push(`<div class="city">${esc(h.city)}<small>${esc(h.county ? h.county + ' County' : '')}</small></div>`);
+        lastKey = key;
+      }
+      const [cls, label] = tagFor(h.gender);
+      items.push(`<div class="row">
+        <span class="n" style="background:${colorOf(h)}">${h.n}</span>
+        <span class="name">${esc(h.name)}</span>
+        <span class="street">${esc(shortStreet(h.address))}</span>
+        <span class="zip${badZip(h.zip) ? ' bad' : ''}">${esc(h.zip || '?????')}</span>
+        <span class="tag ${cls}">${label}</span>
+        <span class="ch">Ch.<i></i></span>
+      </div>`);
+    }
+    // Blank rows for missing houses at the end.
+    items.push('<div class="city">Missing houses<small>add any we left out</small></div>');
+    for (let i = 0; i < 5; i++) items.push('<div class="row"><span></span><span class="name" style="border-bottom:1px solid #c9ced6;height:12px"></span><span style="border-bottom:1px solid #c9ced6;height:12px"></span><span></span><span></span><span class="ch">Ch.<i></i></span></div>');
+
+    await document.fonts.ready;
+    const newListPage = () => {
+      const p = document.createElement('div');
+      p.className = 'page';
+      p.innerHTML = `<div class="list-head"><h2>Houses</h2><span>Write the chapter number in each box</span></div>
+        <div class="cols"><div class="col"></div><div class="col"></div></div>
+        <footer><span>${esc(region.name)}</span><span>Page <span class="pnum"></span> of <span class="total"></span></span></footer>`;
+      document.body.insertBefore(p, document.querySelector('script'));
+      return [...p.querySelectorAll('.col')];
+    };
+    let colsLeft = newListPage();
+    let col = colsLeft.shift();
+    for (const html of items) {
+      col.insertAdjacentHTML('beforeend', html);
+      if (col.scrollHeight > col.clientHeight + 1) {
+        const el = col.lastElementChild;
+        el.remove();
+        // Don't leave a city heading alone at the bottom of a column.
+        const orphan = col.lastElementChild?.classList.contains('city') ? col.lastElementChild : null;
+        if (orphan) orphan.remove();
+        if (!colsLeft.length) colsLeft = newListPage();
+        col = colsLeft.shift();
+        if (orphan) col.appendChild(orphan);
+        col.appendChild(el);
+      }
+    }
+    // Fit check: shrink a column's street text slightly if any street doesn't fit (never below 6.3pt).
+    for (const c of document.querySelectorAll('.col')) {
+      const streets = [...c.querySelectorAll('.row .street')];
+      const over = () => streets.some(e => e.scrollWidth > e.clientWidth + 0.5);
+      for (let pt = 7.1; over() && pt >= 6.3; pt -= 0.1) streets.forEach(e => { e.style.fontSize = pt.toFixed(1) + 'pt'; });
+    }
+
+    // Close-up maps of crowded areas go in the space left after the list (or on a new page).
+    const tilesUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+    const pinIcon = h => L.divIcon({ className: '', iconSize: [17, 17], iconAnchor: [8.5, 8.5],
+      html: `<div class="pin" style="background:${colorOf(h)}">${h.n}</div>` });
+    const closeups = (region.closeups || []).map(cu => ({ ...cu, houses: houses.filter(h => cu.zips.includes(h.zip)) }))
+      .filter(cu => cu.houses.length > 1);
+    if (closeups.length) {
+      let host = col;
+      const titleH = 32, minMapH = 170;
+      const usedH = el => el.lastElementChild ? el.lastElementChild.getBoundingClientRect().bottom - el.getBoundingClientRect().top : 0;
+      let free = host.clientHeight - usedH(host);
+      if (free < closeups.length * (titleH + minMapH)) { colsLeft = colsLeft.length ? colsLeft : newListPage(); host = colsLeft.shift(); free = host.clientHeight; }
+      const mapH = Math.floor(free / closeups.length) - titleH - 10;
+      closeups.forEach((cu, i) => {
+        host.insertAdjacentHTML('beforeend', `<div class="closeup"><h3>Close-up: ${esc(cu.title)}<small>${cu.houses.length} houses</small></h3>
+          <div class="cmap" id="cu${i}" style="height:${mapH}px"></div></div>`);
+      });
+    }
+
+    const pages = document.querySelectorAll('.page');
+    pages.forEach((p, i) => { const n = p.querySelector('.pnum'); if (n) n.textContent = i + 1; });
+    document.querySelectorAll('.total').forEach(e => { e.textContent = pages.length; });
+    document.body.dataset.truncated = [...document.querySelectorAll('.row .street, .row .name')]
+      .filter(e => e.scrollWidth > e.clientWidth + 0.5).map(e => e.textContent).join(' | ');
+
+    // ---- Map ----
+    const map = L.map('map', { zoomControl: false, zoomSnap: 0.1, fadeAnimation: false, zoomAnimation: false });
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap contributors' }).addTo(map);
+    for (const h of houses) {
+      L.marker([h.pt[1], h.pt[0]], { icon: L.divIcon({ className: '', iconSize: [17, 17], iconAnchor: [8.5, 8.5],
+        html: `<div class="pin" style="background:${colorOf(h)}">${h.n}</div>` }) }).addTo(map);
+    }
+    map.invalidateSize();
+    map.fitBounds(houses.map(h => [h.pt[1], h.pt[0]]), { paddingTopLeft: [18, 18], paddingBottomRight: [150, 18] });
+    closeups.forEach((cu, i) => {
+      const b = L.latLngBounds(cu.houses.map(h => [h.pt[1], h.pt[0]])).pad(0.12);
+      L.rectangle(b, { color: '#3d4555', weight: 1.2, dashArray: '4 3', fill: false }).addTo(map)
+        .bindTooltip(`${cu.title} close-up, page ${document.querySelectorAll('.page').length}`, { permanent: true, direction: 'top', className: 'area-label', offset: [0, -2] });
+      const cm = L.map('cu' + i, { zoomControl: false, attributionControl: false, zoomSnap: 0.1, fadeAnimation: false, zoomAnimation: false });
+      L.tileLayer(tilesUrl, { maxZoom: 19 }).addTo(cm);
+      cu.houses.forEach(h => L.marker([h.pt[1], h.pt[0]], { icon: pinIcon(h) }).addTo(cm));
+      cm.fitBounds(cu.houses.map(h => [h.pt[1], h.pt[0]]), { padding: [16, 16] });
+    });
+
+    new QRCode(document.getElementById('qr'), { text: SITE, width: 256, height: 256, colorDark: '#1c2230', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+  })();
+  </script>
+</body>
+</html>

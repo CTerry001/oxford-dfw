@@ -57,7 +57,22 @@
       "housesCsv": "data/dallas/houses.csv",
       "boundaries": "data/dallas/chapters.geojson",
       "sampleData": false,
-      "chapters": []
+      "chapters": [],
+      "closeups": [
+        {
+          "title": "Richardson",
+          "zips": [
+            "75080",
+            "75081"
+          ]
+        },
+        {
+          "title": "East Dallas (75228)",
+          "zips": [
+            "75228"
+          ]
+        }
+      ]
     }
   ]
 }

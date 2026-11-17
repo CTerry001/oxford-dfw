@@ -63,7 +63,8 @@ def main(path, counties):
 
     corrections = load_corrections()
     rows, seen = [], set()
-    for h in fetch_state():
+    source = fetch_state()
+    for h in source:
         if (h.get("c") or "").lower() not in wanted:
             continue
         m = re.match(r"^(.*?),\s*([^,]+),\s*([A-Z]{2})\s*(\d{5})?", h.get("a") or "")
@@ -87,6 +88,11 @@ def main(path, counties):
         w = csv.DictWriter(f, fieldnames=FIELDS, extrasaction="ignore")
         w.writeheader()
         w.writerows(rows)
+    # County per house (used by worksheet.html to group the list).
+    county = {h["n"].strip(): h.get("c", "") for h in source if (h.get("c") or "").lower() in wanted}
+    with open(os.path.join(os.path.dirname(path) or ".", "counties.json"), "w", encoding="utf-8") as f:
+        json.dump({r["name"]: county.get(r["name"], "") for r in rows}, f, indent=0, sort_keys=True)
+
     print(f"{len(rows)} houses written to {path} "
           f"({len(rows) - len(kept)} from oxfordvacancies.com, {len(kept)} kept from existing file)")
     if kept:

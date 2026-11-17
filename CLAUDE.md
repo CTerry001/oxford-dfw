@@ -43,6 +43,14 @@ Test locally with `python3 -m http.server` (opening the file directly won't load
 - Keep it pretty: the owner cares about clean, aligned formatting.
 - Regenerate the handout whenever house data, chapters or addresses change.
 
+**Dallas chapter worksheet** (`worksheet.html?region=dallas` → `handouts/dallas-chapter-worksheet.pdf`)
+- A paper form for Dallas leadership: page 1 has a numbered map and instructions, then a numbered house
+  list grouped by county and city with a "Ch." box. Close-up maps come from `closeups` in `regions.json`.
+- Same rules as the handout: nothing cut off (`data-truncated` empty), clean formatting.
+- The online equivalent is a Google Sheet in the owner's Drive (link in Claude's memory, not in this public
+  repo). When the owner says it's filled in, read it, update `data/dallas/houses.csv`, check the
+  notes for address fixes, preview at `?region=dallas`, and un-hide only with the owner's OK.
+
 **How to work with the owner**
 - The owner is not a developer. Explain in plain language and avoid jargon.
 - When they say "just planning" or "make no changes", give a plan and change nothing.
