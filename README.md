@@ -38,7 +38,7 @@ When the real data is in, delete the sample rows and set `"sampleData": false` i
 ### Chapter areas
 
 - **No boundary file (default):** each chapter's shaded area is drawn automatically around its houses. Address lookups use the nearest house's chapter, and the app labels the result "approximate".
-- **Official boundaries:** draw them at [geojson.io](https://geojson.io), add a property `"chapter": "1"` (etc.) to each shape, and save the result as `data/fort-worth/chapters.geojson`. The app then uses those exact shapes, and address lookups become exact.
+- **Official boundaries:** draw them at [geojson.io](https://geojson.io), add a property `"chapter": "10"` (e.g. "10", "14", "18", "28", "41", "44") to each shape, and save the result as `data/fort-worth/chapters.geojson`. The app then uses those exact shapes, and address lookups become exact.
 
 ### Adding Dallas
 
