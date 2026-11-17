@@ -13,15 +13,15 @@ Cliffside,1 Cliffside Dr,Edgecliff Village,TX,76134,10,Men,(817) 238-3494,32.657
 Coleman Bedford,2316 Stonegate Dr.,Bedford,TX,76021,14,Men,(682) 503-4599,32.8453060,-97.1534721
 Coronet,6909 Quail Meadow Drive,North Richland Hills,TX,76180,14,Men,(817) 479-7679,32.8716375,-97.2457143
 Cortez North,3221 Cortez Drive,Fort Worth,TX,76116,41,Men,(817) 984-3371,32.7263426,-97.4647579
-Downey,1704 Downey Rd.,Fort Worth,TX,76112,,Women & Children,(682) 301-1404,32.7538831,-97.2106235
-Feather,1129 Fairweather Drive,Fort Worth,TX,76120,,Women,(682) 301-1544,32.7629887,-97.1934020
-Fielder,2314 Oak Manor,Arlington,TX,76012,,Men,(682) 706-3229,32.7420216,-97.1473593
+Downey,1704 Downey Rd.,Fort Worth,TX,76112,18,Women & Children,(682) 301-1404,32.7538831,-97.2106235
+Feather,1129 Fairweather Drive,Fort Worth,TX,76120,18,Women,(682) 301-1544,32.7629887,-97.1934020
+Fielder,2314 Oak Manor,Arlington,TX,76012,18,Men,(682) 706-3229,32.7420216,-97.1473593
 Florentine,1324 Florentine Dr.,Fort Worth,TX,76134,,Men,(817) 615-9217,32.6389867,-97.3396671
-Fort Worth,1465 Hedgewood Trail,Fort Worth,TX,76112,,Women & Children,(682) 301-1084,32.7570142,-97.1924511
+Fort Worth,1465 Hedgewood Trail,Fort Worth,TX,76112,18,Women & Children,(682) 301-1084,32.7570142,-97.1924511
 Fox Hollow,1974 Downey Drive,Fort Worth,TX,76112,,Men,(682) 301-1435,32.7488193,-97.2100107
 Hallmark,4608 Ivanhoe Dr.,Fort Worth,TX,76132,10,Women,(817) 615-9362,32.6724407,-97.3911653
 Haltom,3121 Eastridge Dr.,Haltom City,TX,76117,14,Men,(682) 707-9221,32.7998901,-97.2848233
-Hedgewood,7529 Hedgewood Ct.,Fort Worth,TX,76113,,Men,(682) 213-2373,32.7556971,-97.1927584
+Hedgewood,7529 Hedgewood Ct.,Fort Worth,TX,76113,18,Men,(682) 213-2373,32.7556971,-97.1927584
 Hillary Heights,736 Northwest Wood Street,Burleson,TX,76028,44,Women,(682) 385-9109,32.555634,-97.33309939999999
 Hollyberry,5028 Barberry Drive,Fort Worth,TX,76133,10,Women,(682) 250-2223,32.6295668,-97.4006828
 Hulen,6301 Stockton Drive,Fort Worth,TX,76132,28,Men,(817) 238-3430,32.6593122,-97.4156827
@@ -29,14 +29,14 @@ Hurst,832 Overhill Ct.,Hurst,TX,76053,14,Men,(817) 616-3730,32.8371966,-97.18842
 Ivy Cottage,3928 Wren Avenue,Fort Worth,TX,76133,28,Women,(817) 238-3467,32.66463,-97.3799341
 Kellerman,3700 Dawn Dr.,North Richland Hills,TX,76180,14,Men,(682) 626-5891,32.8165064,-97.2463017
 Lake Worth,4624 St. Thomas Street,Fort Worth,TX,76135,41,Women,(817) 720-6884,32.8232431,-97.4318189
-Mahala,2702 Shadow Wood Court,Arlington,TX,76006,,Women,(682) 323-5657,32.7818653,-97.0710630
-Marist,929 Marist Dr.,Fort Worth,TX,76120,,Men,(682) 301-1391,32.7670746,-97.2047065
+Mahala,2702 Shadow Wood Court,Arlington,TX,76006,18,Women,(682) 323-5657,32.7818653,-97.0710630
+Marist,929 Marist Dr.,Fort Worth,TX,76120,18,Men,(682) 301-1391,32.7670746,-97.2047065
 Mccart,5809 Mccart Avenue,Fort Worth,TX,76133,10,Women,(682) 499-8331,32.6610695,-97.3560743
 Milam,4100 Hawthorn Lane,Fort Worth,TX,76137,14,Men,(817) 720-6330,32.8682349,-97.2949972
 Nakron,1601 Holt Street,Fort Worth,TX,76103,,Men,(817) 238-3070,32.7553231,-97.2511050
 Nouvelle,8040 Southern Pine Way,Fort Worth,TX,76132,10,Women,(682) 224-2332,32.6255829,-97.3668800
 Oakmont Meadows,6112 Bowin Drive,Fort Worth,TX,76132,28,Men,(682) 224-3754,32.660605,-97.41208619999999
-Pantego,1405 Waggoner Drive,Arlington,TX,76013,,Men,(682) 323-5096,32.7219417,-97.1402454
+Pantego,1405 Waggoner Drive,Arlington,TX,76013,18,Men,(682) 323-5096,32.7219417,-97.1402454
 Periscope,5501 Tularosa Drive,Fort Worth,TX,76137,14,Men,(817) 849-2694,32.8709964,-97.2675616
 Prosper,5420 Woodway Dr,Fort Worth,TX,76133,28,Men,(682) 841-1180,32.6682744,-97.3772125
 Railroad,951 Benjamin Drive,Burleson,TX,76028,44,Men,(682) 224-3763,32.5396412,-97.3559716
