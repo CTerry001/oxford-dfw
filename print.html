@@ -6,7 +6,7 @@
   <title>Fort Worth Chapters Handout</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
   <style>
     @page { size: letter; margin: 0; }
@@ -22,7 +22,7 @@
     body { font-family: Inter, system-ui, sans-serif; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .page {
       width: 8.5in; height: 10.99in; margin: 0 auto; background: var(--paper);
-      padding: 0.38in 0.4in 0.32in; display: flex; flex-direction: column; overflow: hidden;
+      padding: 0.36in 0.32in 0.3in; display: flex; flex-direction: column; overflow: hidden;
     }
 
     header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 0.14in; }
@@ -53,26 +53,31 @@
     .map-key i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
 
     .chapters {
-      flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.12in;
+      flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.1in;
       margin-top: 0.16in; align-content: start;
     }
     .card { border: 1px solid var(--line); border-radius: 9px; overflow: hidden; background: var(--paper); }
     .card-head {
       display: flex; align-items: baseline; justify-content: space-between;
-      padding: 5px 9px 5px; color: #fff;
+      padding: 5px 8px 5px; color: #fff;
     }
     .card-head h2 { margin: 0; font-family: Fraunces, Georgia, serif; font-size: 12.5pt; font-weight: 600; }
     .card-head span { font-size: 7pt; font-weight: 600; opacity: .92; }
-    .card-area { font-size: 6.8pt; color: var(--muted); padding: 4px 9px 2px; font-weight: 500; }
-    ul { list-style: none; margin: 0; padding: 0 9px 6px; }
-    li {
-      display: grid; grid-template-columns: auto 1fr auto; column-gap: 6px; align-items: baseline;
-      padding: 1.5px 0; border-bottom: 1px solid #f0f1f3; font-size: 7.3pt; line-height: 1.2;
+    .card-area { font-size: 6.8pt; color: var(--muted); padding: 4px 7px 2px; font-weight: 500; }
+    /* One grid per card so names, streets, ZIPs and tags line up in columns. */
+    ul {
+      list-style: none; margin: 0; padding: 0 7px 6px;
+      display: grid; grid-template-columns: max-content minmax(0, 1fr) max-content max-content;
+      column-gap: 4.5px; align-items: baseline;
     }
-    li:last-child { border-bottom: none; }
-    li .name { font-weight: 600; white-space: nowrap; }
-    li .addr { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 6.8pt; }
-    .tag { font-size: 6pt; font-weight: 700; padding: 1px 4px; border-radius: 4px; letter-spacing: .02em; }
+    li { display: contents; }
+    li > span { padding: 2px 0 1.5px; border-bottom: 1px solid #f0f1f3; font-size: 7.3pt; line-height: 1.2; white-space: nowrap; }
+    li:last-child > span { border-bottom: none; }
+    li .name { font-weight: 600; font-size: 7.1pt; letter-spacing: -.005em; }
+    li .street { color: #3d4555; font: 500 7.1pt/1.2 'Inter Tight', Inter, sans-serif; overflow: hidden; text-overflow: ellipsis; }
+    li .zip { color: var(--muted); font: 400 6.7pt/1.2 'Inter Tight', Inter, sans-serif; font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+    li .tag-cell { text-align: right; }
+    .tag { font-size: 5.7pt; font-weight: 700; padding: 1px 3px; border-radius: 4px; letter-spacing: .02em; }
     .tag.M { background: #e8eef9; color: #2c4f8f; }
     .tag.W { background: #fbe9ef; color: #9b2c55; }
     .tag.WC { background: #f6ecfb; color: #6d2f8f; }
@@ -153,7 +158,24 @@
     // ---- Chapter cards ----
     const tagFor = g => /child/i.test(g) ? ['WC', 'W+C'] : /^w/i.test(g) ? ['W', 'W'] : ['M', 'M'];
     const cityName = c => c === 'Watagua' ? 'Watauga' : c;  // typo in source data
-    const shortCity = h => (h.city && h.city !== 'Fort Worth') ? `, ${cityName(h.city)}` : '';
+    // Standard USPS-style abbreviations so long street names fit on one line.
+    const ABBR = {
+      drive: 'Dr', road: 'Rd', lane: 'Ln', street: 'St', avenue: 'Ave', court: 'Ct', circle: 'Cir',
+      trail: 'Trl', terrace: 'Ter', place: 'Pl', boulevard: 'Blvd', parkway: 'Pkwy', highway: 'Hwy',
+      north: 'N', south: 'S', east: 'E', west: 'W',
+      northeast: 'NE', northwest: 'NW', southeast: 'SE', southwest: 'SW',
+    };
+    const DIR = new Set(['N', 'S', 'E', 'W', 'NE', 'NW', 'SE', 'SW']);
+    const shortStreet = s => {
+      const w = s.replace(/\./g, '').split(/\s+/);
+      const ab = i => { const a = ABBR[w[i]?.toLowerCase()]; if (a) w[i] = a; };
+      const isDir = i => DIR.has(ABBR[w[i]?.toLowerCase()] || w[i]);
+      if (w.length > 2 && isDir(1)) ab(1);                // 212 Northeast Murphy Rd
+      let last = w.length - 1;
+      if (last > 2 && isDir(last)) { ab(last); last--; }  // 2316 Stonegate Drive North
+      if (last > 1 && !isDir(last)) ab(last);             // street type
+      return w.join(' ');
+    };
     const areaOf = c => {
       const cities = [...new Set(c.houses.map(h => cityName(h.city)))];
       return cities.length > 3 ? cities.slice(0, 3).join(' · ') + ' & more' : cities.join(' · ');
@@ -166,11 +188,26 @@
         <div class="card-area">${esc(areaOf(c))}</div>
         <ul>${c.houses.map(h => {
           const [cls, label] = tagFor(h.gender);
+          const street = shortStreet(h.address);
           return `<li><span class="name">${esc(h.name)}</span>
-            <span class="addr">${esc(h.address.replace(/\.$/, ''))}${esc(shortCity(h))}</span>
-            <span class="tag ${cls}">${label}</span></li>`;
+            <span class="street" title="${esc(street)}">${esc(street)}</span>
+            <span class="zip">${esc(h.zip)}</span>
+            <span class="tag-cell"><span class="tag ${cls}">${label}</span></span></li>`;
         }).join('')}</ul>
       </article>`).join('');
+    // Fit check: if a card has a street that doesn't fit, shrink that card's street/ZIP
+    // text in small steps (never below 6.3pt) so nothing gets cut off.
+    await document.fonts.ready;  // measure with the real fonts, not the fallback
+    for (const card of document.querySelectorAll('.card')) {
+      const cells = [...card.querySelectorAll('.street, .zip')];
+      const overflowing = () => [...card.querySelectorAll('.street')].some(e => e.scrollWidth > e.clientWidth + 0.5);
+      for (let pt = 7.0; overflowing() && pt >= 6.3; pt -= 0.1) {
+        cells.forEach(e => { e.style.fontSize = (e.classList.contains('zip') ? pt - 0.4 : pt).toFixed(1) + 'pt'; });
+      }
+    }
+    // Record anything still cut off (checked when regenerating the handout).
+    document.body.dataset.truncated = [...document.querySelectorAll('.street')]
+      .filter(e => e.scrollWidth > e.clientWidth + 0.5).map(e => e.textContent).join(' | ');
 
     // ---- Map ----
     const map = L.map('map', { zoomControl: false, zoomSnap: 0.1, attributionControl: true, fadeAnimation: false, zoomAnimation: false });
