@@ -84,7 +84,10 @@ h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: v
 .legend { list-style: none; margin: 0; padding: 0; }
 .legend li { display: flex; align-items: center; gap: 8px; padding: 4px 0; }
 .legend label { flex: 1; display: flex; align-items: center; gap: 8px; cursor: pointer; }
-.legend .count { color: var(--muted); font-size: 13px; }
+.legend .count { color: var(--muted); font-size: 13px; text-align: right; line-height: 1.35; }
+.legend .count strong { color: var(--text, inherit); }
+.legend li.totals { border-top: 1px solid var(--border); margin-top: 4px; padding-top: 8px; font-weight: 600; }
+.legend li.totals span:first-child { flex: 1; }
 .swatch { width: 14px; height: 14px; border-radius: 3px; flex: none; }
 .note { color: var(--muted); font-size: 12px; margin-top: 10px; }
 

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chapter Sign-in Sheet</title>
+  <!-- One-page paper sheet for meetups: just house names (A–Z) with a box for each chapter number.
+       The "text a photo to" number is passed in the URL (?text=5551234567) so it never lives in the repo. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    @page { size: letter; margin: 0; }
+    :root { --ink: #1c2230; --muted: #667085; --line: #e6e8ec; --accent: #2e5eaa; --rowh: 0.3in; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #fff; }
+    body { font-family: Inter, system-ui, sans-serif; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page {
+      width: 8.5in; height: 10.99in; padding: 0.36in 0.36in 0.28in; margin: 0 auto;
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    header { display: flex; justify-content: space-between; align-items: flex-end; gap: 0.2in; }
+    .eyebrow { font-size: 8pt; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+    h1 { font-family: Fraunces, Georgia, serif; font-weight: 700; font-size: 24pt; line-height: 1.05; margin: 2px 0 0; }
+    .sub { font-size: 9pt; color: var(--muted); margin-top: 3px; }
+    .stat { text-align: right; }
+    .stat b { display: block; font-family: Fraunces, Georgia, serif; font-size: 20pt; line-height: 1; }
+    .stat span { font-size: 7pt; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+
+    .how {
+      margin-top: 0.14in; display: grid; grid-template-columns: 1fr auto; gap: 0.18in; align-items: center;
+      background: #f3f6fc; border: 1px solid #d5def0; border-radius: 10px; padding: 9px 12px;
+    }
+    .steps { display: flex; gap: 0.16in; font-size: 9pt; line-height: 1.35; }
+    .step { display: flex; gap: 6px; align-items: flex-start; flex: 1; }
+    .step b.num {
+      flex: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); color: #fff;
+      font-size: 8pt; display: flex; align-items: center; justify-content: center; margin-top: 1px;
+    }
+    .send { text-align: center; border-left: 1px solid #d5def0; padding-left: 0.18in; }
+    .send small { display: block; font-size: 7pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .send .phone { font-family: Fraunces, Georgia, serif; font-size: 18pt; font-weight: 700; white-space: nowrap; line-height: 1.15; }
+
+    .list { flex: 1; min-height: 0; margin-top: 0.16in; column-count: 4; column-gap: 0.2in; column-fill: auto; }
+    .letter {
+      break-after: avoid; break-inside: avoid; font-size: 7pt; font-weight: 800; color: var(--accent);
+      letter-spacing: .08em; padding: 3px 0 1px; border-bottom: 1.4px solid var(--ink);
+    }
+    .row {
+      break-inside: avoid; display: grid; grid-template-columns: 0.42in minmax(0, 1fr); column-gap: 6px;
+      align-items: center; height: var(--rowh); border-bottom: 1px solid #eef0f3; font-size: 9pt;
+    }
+    .row .box { height: calc(var(--rowh) - 6px); border: 1px solid #8a93a3; border-radius: 3px; background: #fffdf5; }
+    .row .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .row .blank { border-bottom: 1px solid #9aa3b2; height: 14px; }
+
+    footer { display: flex; justify-content: space-between; font-size: 7pt; color: var(--muted); margin-top: 0.08in; padding-top: 0.06in; border-top: 1px solid var(--line); }
+    footer b { color: var(--ink); }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div>
+        <div class="eyebrow">Oxford House · Texas</div>
+        <h1>Which chapter is your house in?</h1>
+        <div class="sub" id="subtitle"></div>
+      </div>
+      <div class="stat"><b id="n-houses">–</b><span>Houses</span></div>
+    </header>
+
+    <div class="how">
+      <div class="steps">
+        <div class="step"><b class="num">1</b><span><b>Write the chapter number</b> in the box next to each house you know.</span></div>
+        <div class="step"><b class="num">2</b><span><b>Not sure? Skip it.</b> Partial answers still help.</span></div>
+        <div class="step"><b class="num">3</b><span><b>Snap a photo</b> of this page and text it to the number on the right.</span></div>
+      </div>
+      <div class="send"><small>Text a photo to</small><div class="phone" id="phone">(___) ___-____</div></div>
+    </div>
+
+    <div class="list" id="list"></div>
+
+    <footer>
+      <span>See the Fort Worth map at <b>oxfordchapters.com</b>. Your answers help add this area.</span>
+      <span>Not an official Oxford House, Inc. publication</span>
+    </footer>
+  </div>
+
+  <script src="js/geo.js"></script>
+  <script>
+  (async () => {
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const params = new URLSearchParams(location.search);
+    const digits = (params.get('text') || '').replace(/\D/g, '').replace(/^1(?=\d{10}$)/, '');
+    if (digits.length === 10) document.getElementById('phone').textContent = `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+
+    const { regions } = await fetch('data/regions.json').then(r => r.json());
+    const region = regions.find(r => r.id === (params.get('region') || 'dallas')) || regions[0];
+    const houses = Geo.parseCsv(await fetch(region.housesCsv).then(r => r.text()))
+      .sort((a, b) => a.name.localeCompare(b.name));
+    document.getElementById('subtitle').textContent = region.name.replace(/ · /g, ', ').replace(/, ([^,]+)$/, ' and $1') + ' houses';
+    document.getElementById('n-houses').textContent = houses.length;
+
+    // A–Z list with a small letter heading whenever the first letter changes.
+    let html = '', last = '';
+    for (const h of houses) {
+      const first = h.name[0].toUpperCase();
+      if (first !== last) { html += `<div class="letter">${esc(first)}</div>`; last = first; }
+      html += `<div class="row"><span class="box"></span><span class="name">${esc(h.name)}</span></div>`;
+    }
+    html += '<div class="letter">MISSING A HOUSE? ADD IT</div>';
+    const blanks = n => '<div class="row"><span class="box"></span><span class="blank"></span></div>'.repeat(n);
+    const list = document.getElementById('list');
+
+    // Tallest rows (easiest to write in) that still fit on one page, then fill leftover space with blank rows.
+    await document.fonts.ready;
+    const fits = () => list.scrollWidth <= list.clientWidth + 1;
+    let rowIn = 0.34;
+    for (; rowIn >= 0.18; rowIn -= 0.005) {
+      document.documentElement.style.setProperty('--rowh', rowIn.toFixed(3) + 'in');
+      list.innerHTML = html + blanks(3);
+      if (fits()) break;
+    }
+    let extra = 3;
+    while (extra < 12) { list.innerHTML = html + blanks(extra + 1); if (!fits()) break; extra++; }
+    list.innerHTML = html + blanks(extra);
+
+    document.body.dataset.truncated = [...list.querySelectorAll('.name')]
+      .filter(e => e.scrollWidth > e.clientWidth + 0.5).map(e => e.textContent).join(' | ');
+    document.body.dataset.fit = `${fits()} rowh=${rowIn.toFixed(3)} blanks=${extra}`;
+  })();
+  </script>
+</body>
+</html>

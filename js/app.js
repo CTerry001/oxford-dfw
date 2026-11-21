@@ -154,7 +154,7 @@
     const addr = [h.address, h.city, h.state, h.zip].filter(Boolean).join(', ');
     return `<strong>${esc(h.name)}</strong><br>${esc(addr)}<br>
       <span style="color:${ch?.info.color};font-weight:700">${esc(ch?.info.name || 'Chapter ' + h.chapter)}</span>
-      ${h.gender ? ' · ' + esc(h.gender) : ''}
+      ${h.gender ? ' · ' + esc(h.gender) : ''}${h.beds ? ' · ' + esc(h.beds) + ' beds' : ''}
       ${h.phone ? `<br>House phone: <a href="tel:${esc(h.phone)}">${esc(h.phone)}</a>` : ''}`;
   }
 
@@ -166,10 +166,31 @@
           <span class="swatch" style="background:${ch.info.color}"></span>
           ${esc(ch.info.name)}
         </label>
-        <span class="count">${ch.houses.length} house${ch.houses.length === 1 ? '' : 's'}</span>
-      </li>`).join('');
+        <span class="count">${chapterStats(ch)}</span>
+      </li>`).join('') + regionTotals();
     $('legend').querySelectorAll('input').forEach(cb =>
       cb.addEventListener('change', () => setChapterVisible(cb.dataset.ch, cb.checked)));
+  }
+
+  function bedsOf(houses) { return houses.reduce((n, h) => n + (parseInt(h.beds, 10) || 0), 0); }
+  function money(n) { return '$' + n.toLocaleString('en-US'); }
+
+  // "11 houses · 87 beds" plus, when the chapter has a dues rate, "$35/bed = $3,045 dues".
+  function chapterStats(ch) {
+    const n = ch.houses.length, beds = bedsOf(ch.houses), rate = ch.info.duesPerBed;
+    let out = `${n} house${n === 1 ? '' : 's'}`;
+    if (beds) out += ` · ${beds} beds`;
+    if (beds && rate) out += `<br>${money(rate)}/bed · <strong>${money(beds * rate)}</strong> dues`;
+    return out;
+  }
+
+  function regionTotals() {
+    const chs = [...state.chapters.values()];
+    const beds = bedsOf(state.houses);
+    if (!beds) return '';
+    const dues = chs.reduce((t, ch) => t + (ch.info.duesPerBed ? bedsOf(ch.houses) * ch.info.duesPerBed : 0), 0);
+    return `<li class="totals"><span>All chapters</span><span class="count">${state.houses.length} houses · ${beds} beds${
+      dues ? `<br><strong>${money(dues)}</strong> dues` : ''}</span></li>`;
   }
 
   function setChapterVisible(id, visible) {
@@ -217,7 +238,7 @@
       color: ch?.info.color,
       title: h.name,
       chapter: ch?.info.name || `Chapter ${h.chapter}`,
-      meta: [[h.address, h.city].filter(Boolean).join(', '), h.gender].filter(Boolean).join(' · '),
+      meta: [[h.address, h.city].filter(Boolean).join(', '), h.gender, h.beds && `${h.beds} beds`].filter(Boolean).join(' · '),
     });
     const url = new URL(location.href);
     url.searchParams.set('region', state.region.id);

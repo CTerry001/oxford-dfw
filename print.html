@@ -58,7 +58,7 @@
     }
     .card { border: 1px solid var(--line); border-radius: 9px; overflow: hidden; background: var(--paper); }
     .card-head {
-      display: flex; align-items: baseline; justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 5px 8px 5px; color: #fff;
     }
     .card-head h2 { margin: 0; font-family: Fraunces, Georgia, serif; font-size: 12.5pt; font-weight: 600; }
@@ -76,7 +76,11 @@
     li .name { font-weight: 600; font-size: 7.1pt; letter-spacing: -.005em; }
     li .street { color: #3d4555; font: 500 7.1pt/1.2 'Inter Tight', Inter, sans-serif; overflow: hidden; text-overflow: ellipsis; }
     li .zip { color: var(--muted); font: 400 6.7pt/1.2 'Inter Tight', Inter, sans-serif; font-variant-numeric: tabular-nums; letter-spacing: .01em; }
-    li .tag-cell { text-align: right; }
+    li .tag-cell { display: flex; justify-content: flex-end; align-items: baseline; gap: 3px; }
+    li .beds { min-width: 1.15em; text-align: right; color: var(--ink); font: 600 6.6pt/1.2 'Inter Tight', Inter, sans-serif; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+    .card-head .counts { text-align: right; line-height: 1.3; }
+    .card-head .counts b { font-weight: 800; }
+    .map-key .beds-key { font-weight: 700; font-family: 'Inter Tight', Inter, sans-serif; margin-right: 3px; }
     .tag { font-size: 5.7pt; font-weight: 700; padding: 1px 3px; border-radius: 4px; letter-spacing: .02em; }
     .tag.M { background: #e8eef9; color: #2c4f8f; }
     .tag.W { background: #fbe9ef; color: #9b2c55; }
@@ -104,6 +108,7 @@
       <div class="stats">
         <div class="stat"><b id="n-chapters">–</b><span>Chapters</span></div>
         <div class="stat"><b id="n-houses">–</b><span>Houses</span></div>
+        <div class="stat"><b id="n-beds">–</b><span>Beds</span></div>
       </div>
     </header>
 
@@ -151,6 +156,9 @@
 
     document.getElementById('n-chapters').textContent = chapters.length;
     document.getElementById('n-houses').textContent = houses.length;
+    const bedsOf = hs => hs.reduce((n, h) => n + (parseInt(h.beds, 10) || 0), 0);
+    const money = n => '$' + n.toLocaleString('en-US');
+    document.getElementById('n-beds').textContent = bedsOf(houses);
     document.getElementById('site-url').textContent = SITE.replace(/^https:\/\//, '').replace(/\/$/, '');
     document.getElementById('updated').textContent =
       'Updated ' + new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
@@ -183,7 +191,9 @@
     document.getElementById('chapters').innerHTML = chapters.map(c => `
       <article class="card">
         <div class="card-head" style="background:${c.color}">
-          <h2>Chapter ${esc(c.id)}</h2><span>${c.houses.length} houses</span>
+          <h2>Chapter ${esc(c.id)}</h2>
+          <span class="counts">${c.houses.length} houses · ${bedsOf(c.houses)} beds${c.duesPerBed
+            ? `<br>${money(c.duesPerBed)}/bed · Dues <b>${money(c.duesPerBed * bedsOf(c.houses))}</b>` : ''}</span>
         </div>
         <div class="card-area">${esc(areaOf(c))}</div>
         <ul>${c.houses.map(h => {
@@ -192,7 +202,7 @@
           return `<li><span class="name">${esc(h.name)}</span>
             <span class="street" title="${esc(street)}">${esc(street)}</span>
             <span class="zip">${esc(h.zip)}</span>
-            <span class="tag-cell"><span class="tag ${cls}">${label}</span></span></li>`;
+            <span class="tag-cell"><span class="beds">${esc(h.beds)}</span><span class="tag ${cls}">${label}</span></span></li>`;
         }).join('')}</ul>
       </article>`).join('');
     // Fit check: if a card has a street that doesn't fit, shrink that card's street/ZIP
@@ -203,6 +213,11 @@
       const overflowing = () => [...card.querySelectorAll('.street')].some(e => e.scrollWidth > e.clientWidth + 0.5);
       for (let pt = 7.0; overflowing() && pt >= 6.3; pt -= 0.1) {
         cells.forEach(e => { e.style.fontSize = (e.classList.contains('zip') ? pt - 0.4 : pt).toFixed(1) + 'pt'; });
+      }
+      // Still too wide (e.g. a long house name): tighten the column gaps, then the names a little.
+      if (overflowing()) card.querySelector('ul').style.columnGap = '3px';
+      for (let pt = 7.0; overflowing() && pt >= 6.3; pt -= 0.1) {
+        card.querySelectorAll('.name').forEach(e => { e.style.fontSize = pt.toFixed(1) + 'pt'; });
       }
     }
     // Record anything still cut off (checked when regenerating the handout).
@@ -238,7 +253,8 @@
       `<div><i style="background:${c.color}"></i>Chapter ${esc(c.id)}</div>`).join('') +
       `<span class="gender"><span class="tag M">M</span> Men</span>
        <span class="gender" style="border:0;margin:0;padding-top:2px"><span class="tag W">W</span> Women</span>
-       <span class="gender" style="border:0;margin:0;padding-top:2px"><span class="tag WC">W+C</span> Women &amp; kids</span>`;
+       <span class="gender" style="border:0;margin:0;padding-top:2px"><span class="tag WC">W+C</span> Women &amp; kids</span>
+       <span class="gender"><span class="beds-key">8</span> Beds in house</span>`;
 
     // ---- QR code ----
     new QRCode(document.getElementById('qr'), { text: SITE, width: 256, height: 256, colorDark: '#1c2230', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });

@@ -1,96 +1,96 @@
-name,address,city,state,zip,chapter,gender,phone,lat,lng
-Deerfield,2001 Deerfield Dr.,Carrollton,TX,75007,,Women,(972) 695-0001,32.9865001,-96.8877413
-Erie,3140 Delaford Dr,Carrolton,TX,75007,,Women,(972) 810-0191,33.0023509,-96.8938541
-Steamboat,221 Steamboat Dr,Coppell,TX,75019,,Men,(972) 471-4242,32.9620535,-96.9984012
-Amethyst,612 Park Bend Dr.,Dallas,TX,75081,,Women,(214) 258-5710,32.9325839,-96.7223976
-Bon Park,11137 Cotillion Dr.,Dallas,TX,75228,,Men,(214) 468-4022,32.8453483,-96.6535943
-Campbell,7314 Campbell Road,Dallas,TX,75248,,Men,(214) 272-9098,32.9778244,-96.7764913
-Catalpa,10231 Catalpa Road,Dallas,TX,75243,,Women,(214) 238-0715,32.9150409,-96.7076732
-Cloister,9906 Cloister Drive,Dallas,TX,75228,,Women,(214) 774-9720,32.8306668,-96.6888158
-Clover Haven,7109 Lanyon Dr,Dallas,TX,75227,,Men,(214) 272-7659,32.7822916,-96.6980613
-Cotillion,11323 Cotillion Dr.,Dallas,TX,75228,,Men,(469) 567-3740,32.8484113,-96.6528084
-Country Club,11319 Drummond Circle,Dallas,TX,75228,,Men,(214) 782-9441,32.8470939,-96.6553138
-Dallas,726 Glendale St,Dallas,TX,75214,,Men,(214) 826-4329,32.8072487,-96.7595745
-Electric,10410 Carry Back Circle,Dallas,TX,75229,,Men,(214) 272-7749,32.8861697,-96.8725154
-Heather,7343 Highland Heather Lane,Dallas,TX,75248,,Women,(469) 206-7900,32.9873600,-96.7789925
-High Meadow,12220 High Meadow Drive,Dallas,TX,75234,,Women,(214) 242-8819,32.9147127,-96.8624617
-Highlander,7219 Highland Heather Ln.,Dallas,TX,75248,,Men,(972) 803-5901,32.9876608,-96.7813364
-Junius,7317 Alto Caro Dr,Dallas,TX,75248,,Women,(972) 685-5059,32.9664037,-96.7817957
-Lakewood 2,5406 Gaston Ave,Dallas,TX,75214,,Men,(972) 803-5691,32.8041560,-96.7640164
-Libby Lane,3233 Gus Thomasson Rd.,Dallas,TX,75228,,Men,(972) 863-9889,32.8351194,-96.6610766
-Live,2631 Peavy Road,Dallas,TX,75228,,Women,(214) 238-6633,32.8206705,-96.6848449
-Lockhart,2439 Lockhart Avenue,Dallas,TX,75228,,Women,(469) 914-0205,32.8198851,-96.6736479
-London Fog,7003 London Fog Drive,Dallas,TX,75227,,Men,(214) 377-8339,32.7629912,-96.6995083
-Mccallum,7715 Bantry Lane,Dallas,TX,75248,,Men,(214) 964-0589,32.9859641,-96.7744533
-Merit,7347 Debbe Dr.,Dallas,TX,75252,,Men,(214) 238-0662,32.9941178,-96.7762851
-Middle Way,17912 Hillcrest Road,Dallas,TX,75252,,Men,(214) 484-9541,32.9945805,-96.7842549
-Moreland,4607-4609 Gaston Ave.,Dallas,TX,75214,,Women,(214) 915-8807,32.7977671,-96.7726702
-Motley,3319 Santa Teresa Ave,Dallas,TX,75228,,Men,(469) 372-6394,32.8297704,-96.6597609
-North Park,3624 Coral Gables Dr,Dallas,TX,75229,,Men,(214) 750-1440,32.9056990,-96.8584481
-Odette,11031 Odette Ave,Dallas,TX,75228,,Women,(214) 377-9675,32.8470378,-96.6650231
-Rambling,3047 Rambling Dr,Dallas,TX,75228,,Women,(469) 372-0862,32.8076085,-96.6916753
-Rayburn,3717 Sam Rayburn Trail,Dallas,TX,75287,,Men,(972) 389-4971,33.0024395,-96.8499162
-Ridgefrost,11015 Ridgefrost Circle,Dallas,TX,75228,,Women & Children,(972) 685-3551,32.8454687,-96.6586545
-San Paula,2811 San Paula Ave.,Dallas,TX,75288,,Men,(214) 272-3964,32.8323172,-96.6659211
-Sandelwood,10807 Sandalwood Drive,Dallas,TX,75228,,Men,(469) 779-7023,32.8394804,-96.6614782
-Santa Garza,3122 San Paula Ave.,Dallas,TX,75228,,Men,(214) 484-5197,32.8319785,-96.66272599999999
-Sherry,3056 Walnut Hill Ln,Dallas,TX,75229,,Men,(214) 272-3798,32.8806723,-96.8744521
-Silverthorne,2516 Silverthorne Dr.,Dallas,TX,75287,,Women,(972) 307-1133,32.9945385,-96.8692425
-Sorella,4315 Cinnabar Drive,Dallas,TX,75227,,Men,(214) 613-6855,32.7900499,-96.6963490
-Tayler,11340 Dumbarton Dr,Dallas,TX,75228,,Men,(972) 803-5039,32.8494337,-96.6536740
-Truxillo,11023 Odette Ave,Dallas,TX,75228,,Women,(972) 677-7341,32.8467310,-96.6649330
-Walmsley,1213 Walmsley Avenue,Dallas,TX,75208,,Women,(214) 613-6110,32.7697111,-96.8407740
-White Rock,8453 Banquo Dr,Dallas,TX,75228,,Women,(214) 272-8267,32.8064778,-96.7035552
-Woodstone,7963 Woodstone Ln,Dallas,TX,75248,,Men,(469) 730-3026,32.9560455,-96.7692451
-Crown Point,2828 Lake Sharon Drive,Denton,TX,76210,,Men,(940) 279-1106,33.1443931,-97.0634060
-Denton,629 East Prairie Street,Denton,TX,76205,,Men,(940) 243-3544,33.2108048,-97.1248728
-Green Eagle,706 Audra Lane,Denton,TX,76209,,Men,(940) 384-7418,33.2201,-97.10835999999999
-Kayewood,2413 Kayewood Dr.,Denton,TX,76209,,Women,(940) 218-1827,33.2364664,-97.1156865
-Mccormick,1613 Mccormick St,Denton,TX,76205,,Men,(940) 218-6505,33.1979341,-97.1471213
-Skyward,3608 Marianne Circle,Denton,TX,76209,,Women & Children,(940) 218-1927,33.2481042,-97.1058336
-Flower Mound,1204 Timber Valley Drive,Flower Mound,TX,75028,,Men,(214) 513-9937,33.0373886,-97.0393279
-Arbor Trail,3517 Arbor Trail,Garland,TX,75043,,Men,(214) 484-1282,32.8397814,-96.5766287
-Atreides,5302 Barcelona Dr.,Garland,TX,75043,,Men,(972) 707-8288,32.8517590,-96.6302226
-Barcelona,5430 Barcelona Dr.,Garland,TX,75043,,Women & Children,(972) 803-5101,32.8505855,-96.6279477
-Buckingham,3205 Shenandoah Drive,Garland,TX,75042,,Men,(214) 699-7435,32.9279529,-96.6773237
-Classic,3501 Classic Drive,Garland,TX,75042,,Women,(214) 501-2512,32.9158235,-96.6831457
-Dunaway,5431 Barcelona Dr,Garland,TX,,,Women,(214) 272-3975,32.8502589,-96.6275466
-Firewheel,2600 Holm Drive,Garland,TX,75041,,Women & Children,(469) 661-8780,32.8832688,-96.6619953
-Highridge,437 Rollingridge Lane,Garland,TX,78705,,Women,(214) 434-1963,32.8621145,-96.6354789
-Materhorn,1813 Cripple Creek Dr.,Garland,TX,75041,,Men,(972) 840-0896,32.8730871,-96.6550092
-San Clemente,5446 Barcelona Drive,Garland,TX,75043,,Women,(214) 272-7183,32.8510803,-96.6273008
-Wheeler,1305 W Walnut St,Garland,TX,75041,,Men,(972) 999-1800,32.9164725,-96.6468376
-Wyatt,2213 Sylvan Drive,Garland,TX,75040,,Women,(469) 969-0990,32.9345205,-96.6445413
-Hillcrest Oaks,1346 Carriage Dr.,Irving,TX,75062,,Men,(972) 600-9640,32.8409729,-96.9652200
-Yellow Rose,1330 Croydon Street,Irving,TX,75062,,Men,(469) 524-3862,32.8547686,-96.963086
-Cross Timbers,1818 Santa Fe Street,Lewisville,TX,75077,,Women,(469) 464-3334,33.0507882,-97.0409806
-Mockingbird,701 Mockingbird Dr.,Lewisville,TX,75067,,Men,(214) 513-9833,33.0247514,-97.0025362
-Salem Trail,817 Salem Trail,Lewisville,TX,75067,,Men,(214) 222-5385,33.0297675,-97.0028300
-Lone Star,2324 Warm Springs Rd.,Mesquite,TX,75149,,Men,(972) 803-5627,32.7806325,-96.6342736
-Absolution,3105 Canterbury Drive,Plano,TX,75075,,Men,(214) 501-3791,33.0318229,-96.7539576
-Canyon Valley,3344 Canyon Valley Trl,Plano,TX,75023,,Women,(214) 501-4820,33.0434900,-96.7381028
-Cross Bend,3336 Cross Bend Rd.,Plano,TX,75023,,Men,(942) 599-7293,33.0489227,-96.7583337
-Far Hills,1029 Filmore Dr,Plano,TX,75025,,Men,(469) 304-0321,33.0833724,-96.7115020
-Mcclary,4001 McClary Dr,Plano,TX,75093,,Men,(469) 626-0901,33.0452874,-96.7708347
-Moonglade,4521 Miami Drive,Plano,TX,75093,,Women,(972) 612-1458,33.0181656,-96.7846194
-Rigsbee,2626 E. Park Blvd,Plano,TX,75074,,Men,(972) 422-0023,33.0307526,-96.6759643
-Apollo,1219 Donna Dr,Richardson,TX,75080,,Men,(214) 501-4468,32.9461896,-96.7596851
-Baylor,1703 Aurora Drive,Richardson,TX,75081,,Men,(972) 685-0192,32.9699502,-96.6941181
-Beltline,1226 Donna Dr,Richardson,TX,75080,,Men,(214) 484-3765,32.9464515,-96.7603357
-Cripe,403 Fieldwood Dr,Richardson,TX,75081,,Men,(972) 803-6427,32.9325063,-96.7325487
-Harkness,606 Opal Lane,Richardson,TX,75080,,Men,(972) 803-5079,32.9610972,-96.7404073
-Lake Highlands,404 Birch Lane,Richardson,TX,75081,,Men,(214) 434-1166,32.9312065,-96.7329252
-Lamp Post,1426 Lamp Post Lane,Richardson,TX,75080,,Men,(214) 272-8943,32.9459024,-96.7680723
-Lois Lane,100 S. Lois Lane,Richardson,TX,75081,,Women,(972) 671-2310,32.9481515,-96.7223275
-Maple,410 Maple St,Richardson,TX,75081,,Women,(469) 930-0143,32.9414007,-96.7283654
-North Cotton,304 North Cottonwood Drive,Richardson,TX,75080,,Men,(972) 803-5980,32.9544963,-96.7657664
-Oak Ridge,404 Lowell Lane,Richardson,TX,75081,,Women,(972) 863-9773,32.9673157,-96.7297882
-Pride,4112 Tabernash Lane,Richardson,TX,75080,,Men,(972) 863-8626,32.9851602,-96.6447083
-Richardson,1813 Harvard Dr,Richardson,TX,75081,,Men,(972) 480-8866,32.9614354,-96.6899191
-Richland Manor,414 Sheffield Dr,Richardson,TX,75081,,Men,(469) 914-5424,32.9303377,-96.7321306
-South Spring,111 South Spring Creek Dr.,Richardson,TX,75081,,Men,(214) 258-5200,32.9440349,-96.6875622
-Tru North,502 Melrose Dr.,Richardson,TX,75080,,Women,(214) 468-4405,32.9696730,-96.7347511
-Twilight,1213 Donna Drive,Richardson,TX,75808,,Men,(214) 238-7424,32.9464115,-96.7591341
-Walnut Hill,1238 Delmont Dr,Richardson,TX,75080,,Men,(214) 484-1361,32.9488484,-96.7613813
-Weldon2,1149 Midway Dr.,Richardson,TX,75081,,Men,(214) 613-6835,32.9530274,-96.7057329
-Woodland Park,1423 Nantucket Dr,Richardson,TX,75080,,Men,(214) 242-9231,32.9698465,-96.7407851
+name,address,city,state,zip,chapter,gender,beds,phone,lat,lng
+Deerfield,2001 Deerfield Dr.,Carrollton,TX,75007,24,Women,8,(972) 695-0001,32.9865001,-96.8877413
+Erie,3140 Delaford Dr,Carrolton,TX,75007,24,Women,7,(972) 810-0191,33.0023509,-96.8938541
+Steamboat,221 Steamboat Dr,Coppell,TX,75019,24,Men,10,(972) 471-4242,32.9620535,-96.9984012
+Amethyst,612 Park Bend Dr.,Dallas,TX,75081,4,Women,8,(214) 258-5710,32.9325839,-96.7223976
+Bon Park,11137 Cotillion Dr.,Dallas,TX,75228,35,Men,10,(214) 468-4022,32.8453483,-96.6535943
+Campbell,7314 Campbell Road,Dallas,TX,75248,4,Men,9,(214) 272-9098,32.9778244,-96.7764913
+Catalpa,10231 Catalpa Road,Dallas,TX,75243,4,Women,7,(214) 238-0715,32.9150409,-96.7076732
+Cloister,9906 Cloister Drive,Dallas,TX,75228,35,Women,6,(214) 774-9720,32.8306668,-96.6888158
+Clover Haven,7109 Lanyon Dr,Dallas,TX,75227,16,Men,8,(214) 272-7659,32.7822916,-96.6980613
+Cotillion,11323 Cotillion Dr.,Dallas,TX,75228,35,Men,9,(469) 567-3740,32.8484113,-96.6528084
+Country Club,11319 Drummond Circle,Dallas,TX,75228,35,Men,8,(214) 782-9441,32.8470939,-96.6553138
+Dallas,726 Glendale St,Dallas,TX,75214,4,Men,8,(214) 826-4329,32.8072487,-96.7595745
+Electric,10410 Carry Back Circle,Dallas,TX,75229,43,Men,11,(214) 272-7749,32.8861697,-96.8725154
+Heather,7343 Highland Heather Lane,Dallas,TX,75248,22,Women,8,(469) 206-7900,32.9873600,-96.7789925
+High Meadow,12220 High Meadow Drive,Dallas,TX,75234,43,Women,7,(214) 242-8819,32.9147127,-96.8624617
+Highlander,7219 Highland Heather Ln.,Dallas,TX,75248,2,Men,8,(972) 803-5901,32.9876608,-96.7813364
+Junius,7317 Alto Caro Dr,Dallas,TX,75248,2,Women,7,(972) 685-5059,32.9664037,-96.7817957
+Lakewood 2,5406 Gaston Ave,Dallas,TX,75214,4,Men,9,(972) 803-5691,32.8041560,-96.7640164
+Libby Lane,3233 Gus Thomasson Rd.,Dallas,TX,75228,35,Men,8,(972) 863-9889,32.8351194,-96.6610766
+Live,2631 Peavy Road,Dallas,TX,75228,35,Women,7,(214) 238-6633,32.8206705,-96.6848449
+Lockhart,2439 Lockhart Avenue,Dallas,TX,75228,34,Women,7,(469) 914-0205,32.8198851,-96.6736479
+London Fog,7003 London Fog Drive,Dallas,TX,75227,16,Men,7,(214) 377-8339,32.7629912,-96.6995083
+Mccallum,7715 Bantry Lane,Dallas,TX,75248,4,Men,9,(214) 964-0589,32.9859641,-96.7744533
+Merit,7347 Debbe Dr.,Dallas,TX,75252,2,Men,8,(214) 238-0662,32.9941178,-96.7762851
+Middle Way,17912 Hillcrest Road,Dallas,TX,75252,2,Men,8,(214) 484-9541,32.9945805,-96.7842549
+Moreland,4607-4609 Gaston Ave.,Dallas,TX,75214,4,Women,9,(214) 915-8807,32.7977671,-96.7726702
+Motley,3319 Santa Teresa Ave,Dallas,TX,75228,35,Men,7,(469) 372-6394,32.8297704,-96.6597609
+North Park,3624 Coral Gables Dr,Dallas,TX,75229,43,Men,8,(214) 750-1440,32.9056990,-96.8584481
+Odette,11031 Odette Ave,Dallas,TX,75228,16,Women,10,(214) 377-9675,32.8470378,-96.6650231
+Rambling,3047 Rambling Dr,Dallas,TX,75228,16,Women,8,(469) 372-0862,32.8076085,-96.6916753
+Rayburn,3717 Sam Rayburn Trail,Dallas,TX,75287,24,Men,11,(972) 389-4971,33.0024395,-96.8499162
+Ridgefrost,11015 Ridgefrost Circle,Dallas,TX,75228,35,Women & Children,9,(972) 685-3551,32.8454687,-96.6586545
+San Paula,2811 San Paula Ave.,Dallas,TX,75288,16,Men,9,(214) 272-3964,32.8323172,-96.6659211
+Sandelwood,10807 Sandalwood Drive,Dallas,TX,75228,16,Men,7,(469) 779-7023,32.8394804,-96.6614782
+Santa Garza,3122 San Paula Ave.,Dallas,TX,75228,34,Men,8,(214) 484-5197,32.8319785,-96.66272599999999
+Sherry,3056 Walnut Hill Ln,Dallas,TX,75229,43,Men,7,(214) 272-3798,32.8806723,-96.8744521
+Silverthorne,2516 Silverthorne Dr.,Dallas,TX,75287,24,Women,8,(972) 307-1133,32.9945385,-96.8692425
+Sorella,4315 Cinnabar Drive,Dallas,TX,75227,35,Men,7,(214) 613-6855,32.7900499,-96.6963490
+Tayler,11340 Dumbarton Dr,Dallas,TX,75228,35,Men,8,(972) 803-5039,32.8494337,-96.6536740
+Truxillo,11023 Odette Ave,Dallas,TX,75228,16,Women,7,(972) 677-7341,32.8467310,-96.6649330
+Walmsley,1213 Walmsley Avenue,Dallas,TX,75208,4,Women,8,(214) 613-6110,32.7697111,-96.8407740
+White Rock,8453 Banquo Dr,Dallas,TX,75228,34,Women,8,(214) 272-8267,32.8064778,-96.7035552
+Woodstone,7963 Woodstone Ln,Dallas,TX,75248,4,Men,8,(469) 730-3026,32.9560455,-96.7692451
+Crown Point,2828 Lake Sharon Drive,Denton,TX,76210,39,Men,7,(940) 279-1106,33.1443931,-97.0634060
+Denton,629 East Prairie Street,Denton,TX,76205,39,Men,7,(940) 243-3544,33.2108048,-97.1248728
+Green Eagle,706 Audra Lane,Denton,TX,76209,39,Men,7,(940) 384-7418,33.2201,-97.10835999999999
+Kayewood,2413 Kayewood Dr.,Denton,TX,76209,39,Women,7,(940) 218-1827,33.2364664,-97.1156865
+Mccormick,1613 Mccormick St,Denton,TX,76205,39,Men,6,(940) 218-6505,33.1979341,-97.1471213
+Skyward,3608 Marianne Circle,Denton,TX,76209,39,Women & Children,9,(940) 218-1927,33.2481042,-97.1058336
+Flower Mound,1204 Timber Valley Drive,Flower Mound,TX,75028,24,Men,7,(214) 513-9937,33.0373886,-97.0393279
+Arbor Trail,3517 Arbor Trail,Garland,TX,75043,23,Men,7,(214) 484-1282,32.8397814,-96.5766287
+Atreides,5302 Barcelona Dr.,Garland,TX,75043,23,Men,8,(972) 707-8288,32.8517590,-96.6302226
+Barcelona,5430 Barcelona Dr.,Garland,TX,75043,23,Women & Children,8,(972) 803-5101,32.8505855,-96.6279477
+Buckingham,3205 Shenandoah Drive,Garland,TX,75042,23,Men,6,(214) 699-7435,32.9279529,-96.6773237
+Classic,3501 Classic Drive,Garland,TX,75042,23,Women,8,(214) 501-2512,32.9158235,-96.6831457
+Dunaway,5431 Barcelona Dr,Garland,TX,,16,Women,7,(214) 272-3975,32.8502589,-96.6275466
+Firewheel,2600 Holm Drive,Garland,TX,75041,23,Women & Children,11,(469) 661-8780,32.8832688,-96.6619953
+Highridge,437 Rollingridge Lane,Garland,TX,78705,35,Women,7,(214) 434-1963,32.8621145,-96.6354789
+Materhorn,1813 Cripple Creek Dr.,Garland,TX,75041,34,Men,8,(972) 840-0896,32.8730871,-96.6550092
+San Clemente,5446 Barcelona Drive,Garland,TX,75043,23,Women,8,(214) 272-7183,32.8510803,-96.6273008
+Wheeler,1305 W Walnut St,Garland,TX,75041,23,Men,7,(972) 999-1800,32.9164725,-96.6468376
+Wyatt,2213 Sylvan Drive,Garland,TX,75040,34,Women,7,(469) 969-0990,32.9345205,-96.6445413
+Hillcrest Oaks,1346 Carriage Dr.,Irving,TX,75062,,Men,7,(972) 600-9640,32.8409729,-96.9652200
+Yellow Rose,1330 Croydon Street,Irving,TX,75062,43,Men,10,(469) 524-3862,32.8547686,-96.963086
+Cross Timbers,1818 Santa Fe Street,Lewisville,TX,75077,24,Women,8,(469) 464-3334,33.0507882,-97.0409806
+Mockingbird,701 Mockingbird Dr.,Lewisville,TX,75067,24,Men,7,(214) 513-9833,33.0247514,-97.0025362
+Salem Trail,817 Salem Trail,Lewisville,TX,75067,24,Men,8,(214) 222-5385,33.0297675,-97.0028300
+Lone Star,2324 Warm Springs Rd.,Mesquite,TX,75149,23,Men,6,(972) 803-5627,32.7806325,-96.6342736
+Absolution,3105 Canterbury Drive,Plano,TX,75075,22,Men,7,(214) 501-3791,33.0318229,-96.7539576
+Canyon Valley,3344 Canyon Valley Trl,Plano,TX,75023,22,Women,7,(214) 501-4820,33.0434900,-96.7381028
+Cross Bend,3336 Cross Bend Rd.,Plano,TX,75023,22,Men,8,(942) 599-7293,33.0489227,-96.7583337
+Far Hills,1029 Filmore Dr,Plano,TX,75025,2,Men,7,(469) 304-0321,33.0833724,-96.7115020
+Mcclary,4001 McClary Dr,Plano,TX,75093,22,Men,9,(469) 626-0901,33.0452874,-96.7708347
+Moonglade,4521 Miami Drive,Plano,TX,75093,2,Women,8,(972) 612-1458,33.0181656,-96.7846194
+Rigsbee,2626 E. Park Blvd,Plano,TX,75074,22,Men,7,(972) 422-0023,33.0307526,-96.6759643
+Apollo,1219 Donna Dr,Richardson,TX,75080,3,Men,8,(214) 501-4468,32.9461896,-96.7596851
+Baylor,1703 Aurora Drive,Richardson,TX,75081,2,Men,7,(972) 685-0192,32.9699502,-96.6941181
+Beltline,1226 Donna Dr,Richardson,TX,75080,2,Men,7,(214) 484-3765,32.9464515,-96.7603357
+Cripe,403 Fieldwood Dr,Richardson,TX,75081,42,Men,9,(972) 803-6427,32.9325063,-96.7325487
+Harkness,606 Opal Lane,Richardson,TX,75080,3,Men,10,(972) 803-5079,32.9610972,-96.7404073
+Lake Highlands,404 Birch Lane,Richardson,TX,75081,42,Men,8,(214) 434-1166,32.9312065,-96.7329252
+Lamp Post,1426 Lamp Post Lane,Richardson,TX,75080,3,Men,11,(214) 272-8943,32.9459024,-96.7680723
+Lois Lane,100 S. Lois Lane,Richardson,TX,75081,42,Women,7,(972) 671-2310,32.9481515,-96.7223275
+Maple,410 Maple St,Richardson,TX,75081,42,Women,7,(469) 930-0143,32.9414007,-96.7283654
+North Cotton,304 North Cottonwood Drive,Richardson,TX,75080,3,Men,8,(972) 803-5980,32.9544963,-96.7657664
+Oak Ridge,404 Lowell Lane,Richardson,TX,75081,42,Women,8,(972) 863-9773,32.9673157,-96.7297882
+Pride,4112 Tabernash Lane,Richardson,TX,75080,3,Men,10,(972) 863-8626,32.9851602,-96.6447083
+Richardson,1813 Harvard Dr,Richardson,TX,75081,2,Men,7,(972) 480-8866,32.9614354,-96.6899191
+Richland Manor,414 Sheffield Dr,Richardson,TX,75081,42,Men,8,(469) 914-5424,32.9303377,-96.7321306
+South Spring,111 South Spring Creek Dr.,Richardson,TX,75081,4,Men,7,(214) 258-5200,32.9440349,-96.6875622
+Tru North,502 Melrose Dr.,Richardson,TX,75080,3,Women,8,(214) 468-4405,32.9696730,-96.7347511
+Twilight,1213 Donna Drive,Richardson,TX,75808,3,Men,8,(214) 238-7424,32.9464115,-96.7591341
+Walnut Hill,1238 Delmont Dr,Richardson,TX,75080,2,Men,7,(214) 484-1361,32.9488484,-96.7613813
+Weldon2,1149 Midway Dr.,Richardson,TX,75081,2,Men,9,(214) 613-6835,32.9530274,-96.7057329
+Woodland Park,1423 Nantucket Dr,Richardson,TX,75080,2,Men,9,(214) 242-9231,32.9698465,-96.7407851

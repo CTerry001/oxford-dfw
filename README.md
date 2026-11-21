@@ -42,16 +42,13 @@ The house list was copied from oxfordvacancies.com (Nov 2026): all of Tarrant Co
 - **No boundary file (default):** every spot within 2 km of a house is shaded in the color of its *nearest* house's chapter (so chapters that share a neighborhood, like 10 and 28, split it cleanly). Address lookups use the same nearest-house rule, and the app labels the result "approximate". Change the 2 km with `TERRITORY_KM` in `js/app.js`.
 - **Official boundaries:** draw them at [geojson.io](https://geojson.io), add a property `"chapter": "10"` (e.g. "10", "14", "18", "28", "41", "44") to each shape, and save the result as `data/fort-worth/chapters.geojson`. The app then uses those exact shapes, and address lookups become exact.
 
-### Dallas / Denton / Collin (hidden for now)
+### Dallas / Denton / Collin
 
-Dallas, Denton and Collin County houses (95) are in `data/dallas/houses.csv` with no chapters yet.
-The region is marked `"hidden": true` in `regions.json`, so the site still opens on Fort Worth
-and shows no region dropdown. Preview it with `?region=dallas` on the end of the site address.
+Dallas, Denton and Collin County houses (95) are in `data/dallas/houses.csv`, with chapters from the
+owner. The region shows in the dropdown; Fort Worth is listed first, so the site still opens there.
 
-To go live with Dallas:
-1. Add its chapters to the Dallas entry in `regions.json` (same format as Fort Worth: `id`, `name`, `color`).
-2. Fill in the `chapter` column in `data/dallas/houses.csv`.
-3. Remove `"hidden": true`. A region dropdown then appears.
+To add another area later without showing it yet, give its region `"hidden": true` in `regions.json`
+(it then opens only via `?region=<id>`), fill in chapters, and remove `"hidden"` when ready.
 
 ### Re-importing houses from oxfordvacancies.com
 

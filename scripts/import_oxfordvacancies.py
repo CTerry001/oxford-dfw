@@ -4,7 +4,7 @@
 Usage:
     python3 scripts/import_oxfordvacancies.py data/dallas/houses.csv Dallas Denton Collin
 
-- Writes name, address, city, state, zip, gender, house phone, lat, lng.
+- Writes name, address, city, state, zip, gender, beds (the site's capacity), house phone, lat, lng.
 - Fixes listed in data/corrections.csv (wrong addresses etc. in the source) are re-applied.
 - If the CSV already exists, chapter numbers you've entered are KEPT (matched by
   house name + street address), and any extra houses you added by hand are kept too.
@@ -18,7 +18,7 @@ import sys
 import urllib.parse
 import urllib.request
 
-FIELDS = ["name", "address", "city", "state", "zip", "chapter", "gender", "phone", "lat", "lng"]
+FIELDS = ["name", "address", "city", "state", "zip", "chapter", "gender", "beds", "phone", "lat", "lng"]
 GENDER = {"M": "Men", "W": "Women", "WC": "Women & Children", "MC": "Men & Children"}
 
 
@@ -71,6 +71,7 @@ def main(path, counties):
         street, city, st, zip_ = m.groups() if m else (h.get("a") or "", "", "TX", "")
         row = {"name": h["n"].strip(), "address": street.strip(), "city": city.strip(), "state": st,
                "zip": zip_ or "", "chapter": "", "gender": GENDER.get(h.get("g"), h.get("g") or ""),
+               "beds": h.get("cap") or "",
                "phone": h.get("p") or "", "lat": h.get("la") or "", "lng": h.get("lo") or ""}
         apply_corrections(row, corrections)
         k = key(row["name"], row["address"])
