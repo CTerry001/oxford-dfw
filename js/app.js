@@ -56,9 +56,21 @@
     })).filter(h => Number.isFinite(h.pt[0]) && Number.isFinite(h.pt[1]));
     // Houses whose chapter is blank (or not a known chapter) go in an "unassigned" group.
     const known = new Set(region.chapters.map(c => c.id));
-    // A region can reuse another area's house list but show only its own chapters
-    // (e.g. Denton = Chapter 39 from the Dallas-area list).
-    if (region.onlyTheseChapters) state.houses = state.houses.filter(h => known.has(h.chapter));
+    // A region can be one county of a shared house list (e.g. Dallas, Collin and Denton all use
+    // data/dallas/houses.csv). Chapters that also have houses in another county get a note.
+    state.spill = [];
+    if (region.counties) {
+      const countyOf = await fetch(region.countiesJson).then(r => r.json()).catch(() => ({}));
+      const inRegion = h => region.counties.includes(countyOf[h.name]);
+      const outside = {};
+      for (const h of state.houses) if (!inRegion(h) && known.has(h.chapter)) {
+        const k = h.chapter + '|' + countyOf[h.name];
+        outside[k] = (outside[k] || 0) + 1;
+      }
+      state.spill = Object.entries(outside).map(([k, n]) => { const [ch, county] = k.split('|'); return { ch, county, n }; })
+        .sort((a, b) => a.ch - b.ch);
+      state.houses = state.houses.filter(inRegion);
+    }
     for (const h of state.houses) if (!known.has(h.chapter)) h.chapter = UNASSIGNED;
 
     let boundaryFeatures = [];
@@ -133,6 +145,8 @@
       : assignedCount
         ? `Shaded areas are approximate: each spot is colored by its nearest house (within ${TERRITORY_KM} km).`
         : 'No houses have a chapter assigned yet, so chapter areas can’t be drawn.';
+    if (state.spill.length) $('area-note').textContent += ' Also: ' + state.spill
+      .map(x => `Chapter ${x.ch} has ${x.n} more house${x.n === 1 ? '' : 's'} in ${x.county} County`).join('; ') + '.';
     $('search').value = '';
     renderResults('');
   }

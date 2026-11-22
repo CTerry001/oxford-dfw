@@ -52,6 +52,135 @@
     },
     {
       "id": "dallas",
+      "name": "Dallas County",
+      "center": [
+        32.82,
+        -96.78
+      ],
+      "zoom": 11,
+      "counties": [
+        "Dallas"
+      ],
+      "chapters": [
+        {
+          "id": "2",
+          "name": "Chapter 2",
+          "color": "#d7263d"
+        },
+        {
+          "id": "3",
+          "name": "Chapter 3",
+          "color": "#1b998b"
+        },
+        {
+          "id": "4",
+          "name": "Chapter 4",
+          "color": "#2e5eaa"
+        },
+        {
+          "id": "16",
+          "name": "Chapter 16",
+          "color": "#f18f01"
+        },
+        {
+          "id": "23",
+          "name": "Chapter 23",
+          "color": "#5b8c2a"
+        },
+        {
+          "id": "24",
+          "name": "Chapter 24",
+          "color": "#e0457b"
+        },
+        {
+          "id": "34",
+          "name": "Chapter 34",
+          "color": "#0097b2"
+        },
+        {
+          "id": "35",
+          "name": "Chapter 35",
+          "color": "#8c564b"
+        },
+        {
+          "id": "42",
+          "name": "Chapter 42",
+          "color": "#4a3aa8"
+        },
+        {
+          "id": "43",
+          "name": "Chapter 43",
+          "color": "#2f4f4f"
+        }
+      ],
+      "housesCsv": "data/dallas/houses.csv",
+      "countiesJson": "data/dallas/counties.json",
+      "sampleData": false,
+      "radiusKm": 200
+    },
+    {
+      "id": "collin",
+      "name": "Collin County",
+      "center": [
+        33.0,
+        -96.75
+      ],
+      "zoom": 12,
+      "counties": [
+        "Collin"
+      ],
+      "chapters": [
+        {
+          "id": "2",
+          "name": "Chapter 2",
+          "color": "#d7263d"
+        },
+        {
+          "id": "3",
+          "name": "Chapter 3",
+          "color": "#1b998b"
+        },
+        {
+          "id": "22",
+          "name": "Chapter 22",
+          "color": "#8e44ad"
+        }
+      ],
+      "housesCsv": "data/dallas/houses.csv",
+      "countiesJson": "data/dallas/counties.json",
+      "sampleData": false,
+      "radiusKm": 200
+    },
+    {
+      "id": "denton",
+      "name": "Denton County",
+      "center": [
+        33.12,
+        -97.05
+      ],
+      "zoom": 11,
+      "counties": [
+        "Denton"
+      ],
+      "chapters": [
+        {
+          "id": "24",
+          "name": "Chapter 24",
+          "color": "#e0457b"
+        },
+        {
+          "id": "39",
+          "name": "Chapter 39",
+          "color": "#a68a00"
+        }
+      ],
+      "housesCsv": "data/dallas/houses.csv",
+      "countiesJson": "data/dallas/counties.json",
+      "sampleData": false,
+      "radiusKm": 200
+    },
+    {
+      "id": "dallas-area",
       "name": "Dallas · Denton · Collin",
       "center": [
         32.85,
@@ -138,27 +267,8 @@
             "75228"
           ]
         }
-      ]
-    },
-    {
-      "id": "denton",
-      "name": "Denton",
-      "center": [
-        33.2148,
-        -97.1331
       ],
-      "zoom": 12,
-      "radiusKm": 25,
-      "housesCsv": "data/dallas/houses.csv",
-      "onlyTheseChapters": true,
-      "sampleData": false,
-      "chapters": [
-        {
-          "id": "39",
-          "name": "Chapter 39",
-          "color": "#a68a00"
-        }
-      ]
+      "hidden": true
     }
   ]
 }

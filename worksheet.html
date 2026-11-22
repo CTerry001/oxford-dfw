@@ -151,7 +151,7 @@
     const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     const params = new URLSearchParams(location.search);
     const { regions } = await fetch('data/regions.json').then(r => r.json());
-    const region = regions.find(r => r.id === (params.get('region') || 'dallas')) || regions[0];
+    const region = regions.find(r => r.id === (params.get('region') || 'dallas-area')) || regions[0];
 
     // County per house isn't in the CSV; group by city, ordered the same way as the Google Sheet.
     const COUNTY_COLORS = { Collin: '#2e5eaa', Dallas: '#1b998b', Denton: '#d7263d' };

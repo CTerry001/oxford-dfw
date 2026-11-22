@@ -95,7 +95,7 @@
     if (digits.length === 10) document.getElementById('phone').textContent = `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 
     const { regions } = await fetch('data/regions.json').then(r => r.json());
-    const region = regions.find(r => r.id === (params.get('region') || 'dallas')) || regions[0];
+    const region = regions.find(r => r.id === (params.get('region') || 'dallas-area')) || regions[0];
     const houses = Geo.parseCsv(await fetch(region.housesCsv).then(r => r.text()))
       .sort((a, b) => a.name.localeCompare(b.name));
     document.getElementById('subtitle').textContent = region.name.replace(/ · /g, ', ').replace(/, ([^,]+)$/, ' and $1') + ' houses';
