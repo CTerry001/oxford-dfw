@@ -20,6 +20,9 @@ Test locally with `python3 -m http.server` (opening the file directly won't load
   holds all 95 houses for `worksheet.html` and `meetup.html`. Fort Worth stays first, so it's the default.
   Chapters (2, 3, 4, 16, 22, 23, 24, 34, 35, 39, 42, 43) came from the owner's meetup sheet. Hillcrest Oaks
   is confirmed to be in no chapter. Dallas-area dues rates are unknown, so none are shown.
+- **Midland–Odessa** (id `midland-odessa`, added 2026-11-21): 9 houses in Midland + Ector counties, all
+  Chapter 32 (from the owner). Dues rate unknown. Re-import with
+  `python3 scripts/import_oxfordvacancies.py data/midland-odessa/houses.csv Midland Ector`.
 - A region can be hidden with `"hidden": true` (no dropdown entry; opens only via `?region=<id>`). Use
   that for any new area until the owner supplies its chapters, and un-hide only when they say so.
 - `meetup.html?region=<id>&text=<phone>` prints a one-page names-only sheet with chapter boxes for

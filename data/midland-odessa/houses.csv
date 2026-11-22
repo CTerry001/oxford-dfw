@@ -1,0 +1,10 @@
+name,address,city,state,zip,chapter,gender,beds,phone,lat,lng
+Basin,3411 Princeton Ave.,Midland,TX,79703,32,Men,8,(432) 262-0036,32.0003377,-102.1237899
+New Roots,1605 North I Street,Midland,TX,79701,32,Men,8,(432) 218-6040,32.0102792,-102.0962282
+Permian,3045 Fredna Place,Midland,TX,79707,32,Men,8,(432) 218-6931,32.0107806,-102.1441687
+Tall City,106 Ridglea Dr.,Midland,TX,79701,32,Women,8,(432) 262-0365,32.0074904,-102.0833025
+Tumbleweed,3302 W Dengar Ave.,Midland,TX,79707,32,Men,9,(432) 262-0069,32.0159914,-102.1242445
+Century,1604 Century Ave.,Odessa,TX,79762,32,Women,7,(432) 614-0929,31.8800447,-102.3632590
+Refined,4228 Winchester Avenue,Odessa,TX,79762,32,Men,9,(432) 307-6990,31.8901417,-102.3637489
+Valiant,3610 Maple Ave.,Odessa,TX,79762,32,Men,10,(432) 272-0515,31.8817299,-102.3574473
+Woodpine,2418 E. 21st Street,Odessa,TX,79761,32,Men,6,(432) 272-0458,31.8712857,-102.3436732

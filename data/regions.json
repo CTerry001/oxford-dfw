@@ -180,8 +180,26 @@
       "radiusKm": 200
     },
     {
+      "id": "midland-odessa",
+      "name": "Midland\u2013Odessa",
+      "center": [
+        31.952,
+        -102.2222
+      ],
+      "zoom": 11,
+      "housesCsv": "data/midland-odessa/houses.csv",
+      "sampleData": false,
+      "chapters": [
+        {
+          "id": "32",
+          "name": "Chapter 32",
+          "color": "#d7263d"
+        }
+      ]
+    },
+    {
       "id": "dallas-area",
-      "name": "Dallas · Denton · Collin",
+      "name": "Dallas \u00b7 Denton \u00b7 Collin",
       "center": [
         32.85,
         -96.8

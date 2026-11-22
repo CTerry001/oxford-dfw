@@ -13,3 +13,4 @@ Woodstone,address,7963 Woodstone,7963 Woodstone Ln,Missing street type; Census +
 Wheeler,address,1305 Walnut Street,1305 W Walnut St,Missing direction; Census + map: W Walnut St
 Canyon Valley,address,3344 Canyon Valley Tr.,3344 Canyon Valley Trl,Standard abbreviation
 Mcclary,address,4001 Mc Clary Drive,4001 McClary Dr,Census + map spelling: McClary
+Century,address,1604 E. Century Ave.,1604 Century Ave.,"Census + map pin: Century Ave has no E. (source lists ""E. Century"")"

@@ -52,6 +52,10 @@ covers all three for the printable worksheet and meetup sheet.
 To add another area later without showing it yet, give its region `"hidden": true` in `regions.json`
 (it then opens only via `?region=<id>`), fill in chapters, and remove `"hidden"` when ready.
 
+### Midland–Odessa
+
+`data/midland-odessa/houses.csv`: 9 houses in Midland and Odessa, all Chapter 32.
+
 ### Re-importing houses from oxfordvacancies.com
 
 ```sh
