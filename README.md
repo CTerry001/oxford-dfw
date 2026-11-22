@@ -42,10 +42,12 @@ The house list was copied from oxfordvacancies.com (Nov 2026): all of Tarrant Co
 - **No boundary file (default):** every spot within 2 km of a house is shaded in the color of its *nearest* house's chapter (so chapters that share a neighborhood, like 10 and 28, split it cleanly). Address lookups use the same nearest-house rule, and the app labels the result "approximate". Change the 2 km with `TERRITORY_KM` in `js/app.js`.
 - **Official boundaries:** draw them at [geojson.io](https://geojson.io), add a property `"chapter": "10"` (e.g. "10", "14", "18", "28", "41", "44") to each shape, and save the result as `data/fort-worth/chapters.geojson`. The app then uses those exact shapes, and address lookups become exact.
 
-### Dallas / Denton / Collin
+### Dallas, Collin and Denton counties
 
-Dallas, Denton and Collin County houses (95) are in `data/dallas/houses.csv`, with chapters from the
-owner. The region shows in the dropdown; Fort Worth is listed first, so the site still opens there.
+The 95 houses are in `data/dallas/houses.csv` (chapters from the owner), with each house's county in
+`data/dallas/counties.json`. The menu shows **Dallas County**, **Collin County** and **Denton County**
+separately: each region lists `"counties"` and the chapters found there. A hidden `dallas-area` region
+covers all three for the printable worksheet and meetup sheet.
 
 To add another area later without showing it yet, give its region `"hidden": true` in `regions.json`
 (it then opens only via `?region=<id>`), fill in chapters, and remove `"hidden"` when ready.

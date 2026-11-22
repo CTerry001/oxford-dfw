@@ -13,12 +13,13 @@ Test locally with `python3 -m http.server` (opening the file directly won't load
 
 **Map defaults**
 - The site must open on **Fort Worth only**. Do not change the default region.
-- Dallas / Denton / Collin is live (un-hidden 2026-11-21, owner's request) and appears in the region
-  dropdown; Fort Worth stays first in `regions.json`, so it's still the default. Its chapters (2, 3, 4,
-  16, 22, 23, 24, 34, 35, 39, 42, 43) came from a meetup sheet the owner collected. Hillcrest Oaks is
-  confirmed to be in no chapter. Dallas dues rates are unknown, so none are shown.
-- **Denton** (added 2026-11-21, owner's request) is its own menu entry showing only Chapter 39. It reuses
-  `data/dallas/houses.csv` with `"onlyTheseChapters": true`, so Denton houses also still show in the Dallas area.
+- Dallas, Collin and Denton are **separate menu entries by county** (owner's request, 2026-11-21): ids
+  `dallas`, `collin`, `denton`. All three read `data/dallas/houses.csv` and filter with `"counties"` +
+  `data/dallas/counties.json`. Chapters 2, 3 and 24 span counties; each county view shows only its own
+  houses plus a note ("Chapter 24 has 2 more houses in Dallas County"). A hidden `dallas-area` region
+  holds all 95 houses for `worksheet.html` and `meetup.html`. Fort Worth stays first, so it's the default.
+  Chapters (2, 3, 4, 16, 22, 23, 24, 34, 35, 39, 42, 43) came from the owner's meetup sheet. Hillcrest Oaks
+  is confirmed to be in no chapter. Dallas-area dues rates are unknown, so none are shown.
 - A region can be hidden with `"hidden": true` (no dropdown entry; opens only via `?region=<id>`). Use
   that for any new area until the owner supplies its chapters, and un-hide only when they say so.
 - `meetup.html?region=<id>&text=<phone>` prints a one-page names-only sheet with chapter boxes for
