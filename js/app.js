@@ -56,6 +56,9 @@
     })).filter(h => Number.isFinite(h.pt[0]) && Number.isFinite(h.pt[1]));
     // Houses whose chapter is blank (or not a known chapter) go in an "unassigned" group.
     const known = new Set(region.chapters.map(c => c.id));
+    // A region can reuse another area's house list but show only its own chapters
+    // (e.g. Denton = Chapter 39 from the Dallas-area list).
+    if (region.onlyTheseChapters) state.houses = state.houses.filter(h => known.has(h.chapter));
     for (const h of state.houses) if (!known.has(h.chapter)) h.chapter = UNASSIGNED;
 
     let boundaryFeatures = [];
@@ -187,7 +190,7 @@
   function regionTotals() {
     const chs = [...state.chapters.values()];
     const beds = bedsOf(state.houses);
-    if (!beds) return '';
+    if (!beds || chs.length < 2) return '';  // a one-chapter area doesn't need a total
     const dues = chs.reduce((t, ch) => t + (ch.info.duesPerBed ? bedsOf(ch.houses) * ch.info.duesPerBed : 0), 0);
     return `<li class="totals"><span>All chapters</span><span class="count">${state.houses.length} houses · ${beds} beds${
       dues ? `<br><strong>${money(dues)}</strong> dues` : ''}</span></li>`;

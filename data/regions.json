@@ -139,6 +139,26 @@
           ]
         }
       ]
+    },
+    {
+      "id": "denton",
+      "name": "Denton",
+      "center": [
+        33.2148,
+        -97.1331
+      ],
+      "zoom": 12,
+      "radiusKm": 25,
+      "housesCsv": "data/dallas/houses.csv",
+      "onlyTheseChapters": true,
+      "sampleData": false,
+      "chapters": [
+        {
+          "id": "39",
+          "name": "Chapter 39",
+          "color": "#a68a00"
+        }
+      ]
     }
   ]
 }
